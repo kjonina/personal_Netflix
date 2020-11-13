@@ -256,9 +256,9 @@ views_by_Title_name = df1.groupby(['Title_name']
 # Duration by Profile Name and Titles
 # =============================================================================
 #visualising duration by profile Name and title
-views_per_user_by_Title_name = df1.groupby(
-        ['Profile Name', 'Title_name']
-        )['Duration'].sum().reset_index()
+views_by_Title_name = df1.groupby(
+        ['Title_name']
+        )['Duration'].sum().sort_values(ascending=False)
 
 #Creating table to view Duration by Name and title
 pivot_title_name = pd.DataFrame({'A': df1['Profile Name'],
@@ -270,5 +270,139 @@ pivot_title_name1 = pd.pivot_table(pivot_title_name, values='C', index=['B'], co
 
 #Produce the table
 print(pivot_title_name1)
+
+
+# =============================================================================
+# Creating separate datasets for each user to analyse Top 15
+# =============================================================================
+
+Karina = df1[df1['Profile Name'] == 'Karina']
+
+Karolina = df1[df1['Profile Name'] == 'Karolina']
+
+Vit = df1[df1['Profile Name'] == 'Vit']
+
+
+# =============================================================================
+# Examining dataset by Karina
+# =============================================================================
+#Creating the view of Karina's viewing habits
+views_by_Karina = Karina.groupby(['Title_name', 'Type']
+        )['Duration'].sum().sort_values(ascending=False)
+
+# Viewing Karina's Top 50 most watched (in Duration) Tv Shows and Movies
+views_by_Karina.head(50)
+
+# Viewing Karina's Bottom 15 watched (in Duration) Tv Shows and Movies
+views_by_Karina.tail(15)
+
+
+#Too much data so it needs to be split by Movie and Tv Show
+
+Karina_Movie = Karina[Karina['Type'] == 'Movie']
+Karina_TV_Show = Karina[Karina['Type'] == 'TV Show']
+
+#Creating the view of Karina's viewing habits By Movie
+movie_views_by_Karina = Karina_Movie.groupby(['Title_name']
+        )['Duration'].sum().sort_values(ascending=False)
+
+# Viewing Karina's Top 50 most watched (in Duration) Movies
+movie_views_by_Karina.head(50)
+
+# Viewing Karina's Bottom 15 watched (in Duration) Tv Shows and Movies
+movie_views_by_Karina.tail(15)
+
+
+#Creating the view of Karina's viewing habits By TV Shows
+TV_Shows_views_by_Karina = Karina_TV_Show.groupby(['Title_name']
+        )['Duration'].sum().sort_values(ascending=False)
+
+# Viewing Karina's Top 50 most watched (in Duration) Movies
+TV_Shows_views_by_Karina.head(50)
+
+# Viewing Karina's Bottom 15 watched (in Duration) Tv Shows and Movies
+TV_Shows_views_by_Karina.tail(15)
+
+
+
+
+#examining the shape of the data
+print(views_by_Karina.shape)
+
+
+
+
+# =============================================================================
+# Examining dataset by Karolina
+# =============================================================================
+
+#Creating the view of Karolina's viewing habits
+views_by_Karolina = Karolina.groupby(['Title_name', 'Type']
+        )['Duration'].sum().sort_values(ascending=False)
+
+# Viewing Karolina's Top 50 most watched (in Duration) Tv Shows and Movies
+views_by_Karolina.head(50)
+
+# Viewing Karolina's Bottom 15 watched (in Duration) Tv Shows and Movies
+views_by_Karolina.tail(15)
+
+#examining the shape of the data
+print(views_by_Karolina.shape)
+
+
+
+#Too much data so it needs to be split by Movie and Tv Show
+
+Karolina_Movie = Karolina[Karolina['Type'] == 'Movie']
+Karolina_TV_Show = Karolina[Karolina['Type'] == 'TV Show']
+
+#Creating the view of Karolina's viewing habits By Movie
+movie_views_by_Karolina = Karolina_Movie.groupby(['Title_name']
+        )['Duration'].sum().sort_values(ascending=False)
+
+# Viewing Karolina's Top 50 most watched (in Duration) Movies
+movie_views_by_Karolina.head(50)
+
+# Viewing Karolina's Bottom 15 watched (in Duration) Tv Shows and Movies
+movie_views_by_Karolina.tail(15)
+
+
+#Creating the view of Karolina's viewing habits By TV Shows
+TV_Shows_views_by_Karolina = Karolina_TV_Show.groupby(['Title_name']
+        )['Duration'].sum().sort_values(ascending=False)
+
+# Viewing Karolina's Top 50 most watched (in Duration) Movies
+TV_Shows_views_by_Karolina.head(50)
+
+# Viewing Karolina's Bottom 15 watched (in Duration) Tv Shows and Movies
+TV_Shows_views_by_Karolina.tail(15)
+
+
+# =============================================================================
+# Examining dataset by Vit
+# =============================================================================
+
+#Creating the view of Vit's viewing habits
+views_by_Vit = Vit.groupby(
+        ['Title_name', 'Type']
+        )['Duration'].sum().sort_values(ascending=False)
+
+# Viewing Vit's Top 50 most watched (in Duration) Tv Shows and Movies
+views_by_Vit.head(50)
+
+# Viewing Karolina's Bottom 15 watched (in Duration) Tv Shows and Movies
+views_by_Vit.tail(15)
+
+#examining the shape of the data
+print(views_by_Vit.shape)
+
+
+'''
+Draw line graph with time + duration
+
+
+Find out the Top 15 for all users (perhaps over lap)
+
+'''
 
 
