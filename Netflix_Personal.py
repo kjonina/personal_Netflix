@@ -93,9 +93,6 @@ df1['Profile Name'] = df1['Profile Name'].astype('category')
 # changing Start Time to Date Time in UTC Time Zone
 df1['Start Time'] = pd.to_datetime(df1['Start Time'], utc = True)
 
-
-df1.head()
-
 #changing Duration to time account
 df1['Duration'] = pd.to_timedelta(df1['Duration'])
 
@@ -204,7 +201,7 @@ df1.groupby('Profile Name')['hour'].value_counts()
 # =============================================================================
 
 #trying to find the all the names with Season and create a new variable called Type
-df1.loc[df1['Title'].str.contains('Season'), 'Type'] = 'TV Show'
+df1.loc[df1['Title'].str.contains(': '), 'Type'] = 'TV Show'
 
 #Trying to create Movie in Type
 df1.loc[df1['Type'].isnull(), 'Type'] = 'Movie'
@@ -335,6 +332,11 @@ print(views_by_Karina.shape)
 # =============================================================================
 # Examining dataset by Karolina
 # =============================================================================
+Karolina['Title_name'].unique()
+
+
+# Examining the most clicks
+Karolina.groupby(['Title_name']).size().sort_values(ascending=False)
 
 #Creating the view of Karolina's viewing habits
 views_by_Karolina = Karolina.groupby(['Title_name', 'Type']
@@ -363,7 +365,7 @@ movie_views_by_Karolina = Karolina_Movie.groupby(['Title_name']
 # Viewing Karolina's Top 50 most watched (in Duration) Movies
 movie_views_by_Karolina.head(50)
 
-# Viewing Karolina's Bottom 15 watched (in Duration) Tv Shows and Movies
+# Viewing Karolina's Bottom 15 watched (in Duration)  Movies
 movie_views_by_Karolina.tail(15)
 
 
@@ -371,10 +373,10 @@ movie_views_by_Karolina.tail(15)
 TV_Shows_views_by_Karolina = Karolina_TV_Show.groupby(['Title_name']
         )['Duration'].sum().sort_values(ascending=False)
 
-# Viewing Karolina's Top 50 most watched (in Duration) Movies
+# Viewing Karolina's Top 50 most watched (in Duration) Tv Shows
 TV_Shows_views_by_Karolina.head(50)
 
-# Viewing Karolina's Bottom 15 watched (in Duration) Tv Shows and Movies
+# Viewing Karolina's Bottom 15 watched (in Duration) Tv Shows 
 TV_Shows_views_by_Karolina.tail(15)
 
 
@@ -399,10 +401,6 @@ print(views_by_Vit.shape)
 
 '''
 Draw line graph with time + duration
-
-
-Find out the Top 15 for all users (perhaps over lap)
-
 '''
 
 
