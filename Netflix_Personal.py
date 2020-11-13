@@ -73,10 +73,13 @@ df = df.drop(['Attributes', 'Bookmark', 'Latest Bookmark', 'Country', 'Device Ty
 
 print(df.head())
 
+#creating a new variable called SVT where data is null or not null
 df['SVT'] = df['Supplemental Video Type'].isnull()
 
 # Trying to create a dataset with only True as SVT
 df1 = df[df.SVT == True]
+
+#dropping unnecesary columns
 df1 = df1.drop(['SVT', 'Supplemental Video Type'], axis = 1)
 
 
@@ -394,7 +397,13 @@ print(views_by_Vit.shape)
 
 
 '''
-Draw line graph with time + duration
+Draw line graph with time + duration with 3 different lines for each user
+
+Create a snapshot of when the users are all using Netflix
+
+Analyse Titles
+
+Run an algorythm to analyse who will watch which TV SHows and Movies with what titles?
 '''
 
 
