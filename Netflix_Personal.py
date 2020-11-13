@@ -22,11 +22,6 @@ import seaborn as sns
 from wordcloud import WordCloud
 from sklearn.feature_extraction.text import CountVectorizer #Bag of Words
 
-
-
-# The df used was collected from the following website:
-# https://www.kaggle.com/shivamb/netflix-shows
-
 # read the CSV file
 df = pd.read_csv('ViewingActivity.csv')
 
@@ -243,30 +238,37 @@ plotdata2 = views_per_user_by_Type.pivot(index = 'Profile Name',
 plotdata2.plot(kind = 'bar')
 
 # =============================================================================
-# Splitting Titles
+# Removing Seasons and Episodes from Titles
 # =============================================================================
 
-
-for title in df.Title:
-    title_name = []
-    if df[df['Title'].str.contains('Season', regex=False)]:
-        df['Title'].lsplit('; ')
-        title_name.append(str(df['Title']).lstrip(' :'))
-return title_name
+df1['Title_name'] = (np.where(df1['Title'].str.contains(': '),
+                  df1['Title'].str.split(':').str[0],
+                  df1['Title']))
 
 
-
-
-if df[df['Title'].any().contains('Season', regex=False)]:
-df['Title'].lsplit('; ')
-
-
-seasons = df1[df1['Title'].str.contains('Season', regex=False)]
+views_by_Title_name = df1.groupby(['Title_name']
+        )['Duration'].sum().reset_index()
 
 
 
-def remove_title(text):
-        clean_Title = [word for word in text.split() if text.str.contains('Sason')]
-        return clean_Title
 
-df1['Title_Name']=df1['Title'].apply(remove_title)
+# =============================================================================
+# Duration by Profile Name and Titles
+# =============================================================================
+#visualising duration by profile Name and title
+views_per_user_by_Title_name = df1.groupby(
+        ['Profile Name', 'Title_name']
+        )['Duration'].sum().reset_index()
+
+#Creating table to view Duration by Name and title
+pivot_title_name = pd.DataFrame({'A': df1['Profile Name'],
+                   'B': df1['Title_name'],
+                   'C': df1['Duration']})
+
+# Pivoting the table
+pivot_title_name1 = pd.pivot_table(pivot_title_name, values='C', index=['B'], columns=['A'], aggfunc='sum')
+
+#Produce the table
+print(pivot_title_name1)
+
+
