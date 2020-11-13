@@ -4,8 +4,8 @@
 Name:               Karina Jonina 
 Github:             https://github.com/kjonina/
 Data Gathered:      based on Family Netflix Account
+Inspired by:        https://www.dataquest.io/blog/python-tutorial-analyze-personal-netflix-data/
 """
-
 
 import numpy as np
 import pandas as pd
@@ -18,7 +18,6 @@ import nltk # Use nltk for valid words
 import collections as co # Need to make hash 'dictionaries' from nltk for fast processing
 import warnings # current version of seaborn generates a bunch of warnings that we'll ignore
 warnings.filterwarnings("ignore")
-import seaborn as sns
 from wordcloud import WordCloud
 from sklearn.feature_extraction.text import CountVectorizer #Bag of Words
 
@@ -197,7 +196,7 @@ plotdata1.plot(kind = 'bar')
 df1.groupby('Profile Name')['hour'].value_counts()
 
 # =============================================================================
-# Creating Type: Tv Show or Movie
+# Creating variable called Type: Tv Show or Movie
 # =============================================================================
 
 #trying to find the all the names with Season and create a new variable called Type
@@ -235,7 +234,7 @@ plotdata2 = views_per_user_by_Type.pivot(index = 'Profile Name',
 plotdata2.plot(kind = 'bar')
 
 # =============================================================================
-# Removing Seasons and Episodes from Titles
+# Removing Seasons and Episodes from text in Titles
 # =============================================================================
 
 df1['Title_name'] = (np.where(df1['Title'].str.contains(': '),
@@ -294,6 +293,9 @@ views_by_Karina.head(50)
 views_by_Karina.tail(15)
 
 
+#examining the shape of the data
+print(views_by_Karina.shape)
+
 #Too much data so it needs to be split by Movie and Tv Show
 
 Karina_Movie = Karina[Karina['Type'] == 'Movie']
@@ -306,7 +308,7 @@ movie_views_by_Karina = Karina_Movie.groupby(['Title_name']
 # Viewing Karina's Top 50 most watched (in Duration) Movies
 movie_views_by_Karina.head(50)
 
-# Viewing Karina's Bottom 15 watched (in Duration) Tv Shows and Movies
+# Viewing Karina's Bottom 15 watched (in Duration) Movies
 movie_views_by_Karina.tail(15)
 
 
@@ -314,19 +316,11 @@ movie_views_by_Karina.tail(15)
 TV_Shows_views_by_Karina = Karina_TV_Show.groupby(['Title_name']
         )['Duration'].sum().sort_values(ascending=False)
 
-# Viewing Karina's Top 50 most watched (in Duration) Movies
+# Viewing Karina's Top 50 most watched (in Duration) Tv Shows 
 TV_Shows_views_by_Karina.head(50)
 
-# Viewing Karina's Bottom 15 watched (in Duration) Tv Shows and Movies
+# Viewing Karina's Bottom 15 watched (in Duration) Tv Shows 
 TV_Shows_views_by_Karina.tail(15)
-
-
-
-
-#examining the shape of the data
-print(views_by_Karina.shape)
-
-
 
 
 # =============================================================================
