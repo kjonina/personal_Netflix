@@ -2,9 +2,9 @@
 After downloading Netflix data from my account, I decided to analyse it with pandas and practise pivoting tables.
 
 Data was based on Family Netflix Account
-Inspired by https://www.dataquest.io/blog/python-tutorial-analyze-personal-netflix-data/
+Inspired by [python tutorial analyze personal netflix data] (https://www.dataquest.io/blog/python-tutorial-analyze-personal-netflix-data/
 
-# Variables
+## Variables
 ['Profile Name', 'Start Time', 'Duration', 'Attributes', 'Title',
 'Supplemental Video Type', 'Device Type', 'Bookmark', 'Latest Bookmark',
 'Country']
@@ -17,13 +17,13 @@ The data contains Hooks and Trailers, which were elimiated from the data as wel.
 
 Another varialbe was created Type which had 2 levels: TV Show and Movie
 
-# Users
+## Users
 My family watches Netflix as well, but I think I should only write about myself in this report. 
 
 Upon initial examination, here is the table of Duration.
 - Karina     90 days 01:52:53
 
-# Examining Weekdays
+## Examining Weekdays
 What day of the week do I watch the most Netflix?
 -   weekdays         Duration
 -       Mon 11 days 06:16:13
@@ -35,20 +35,20 @@ What day of the week do I watch the most Netflix?
 -       Sun 12 days 11:33:42
 
 
-# Examining Hour of the Day
+## Examining Hour of the Day
 
 In my defence, I use Netflix to watch as I fall asleep. I call it my cheap cure to insomnia.
 Majority of the time, I would turn on Netflix before bed and just fall asleep. 
 Unfortunately, Netflix does not ask "Click to Continue" and on numerous occassions I woke up at 3am to find that Netflix kept rolling.
 
 
-# Examining  Type
+## Examining  Type
 -                  Movie          TV Show                                        
 - Karina   8 days 00:12:30 82 days 01:40:23
 
 Due to enormous amount of data when viewing Top 15 so the data was split by User and then Type.
 
-# Examining Top 15 Movies 
+## Examining Top 15 Movies 
 - Gone Girl                     09:40:01 - fantastic movie
 - Gattaca                       06:08:54 - "You want to know how I did it? This is how I did it, Anton: I never saved anything for the swim back."
 - Pride & Prejudice             05:05:23 
@@ -65,7 +65,7 @@ Due to enormous amount of data when viewing Top 15 so the data was split by User
 - The Hangover                  03:19:22 
 - Leap Year                     03:12:29 - Watched it at least twice with in my English Language class
 
-# Examining Top 15 TV Shows
+## Examining Top 15 TV Shows
 - Gossip Girl                   7 days 10:16:19
 - How I Met Your Mother         6 days 16:40:53
 - Brooklyn Nine-Nine            6 days 07:05:39
@@ -90,18 +90,18 @@ So I decided to find out how much of that viewing was made during Covid and Pre-
 Considering I am unemployed (but in a part-time course in DBS, which takes up majority of my time now), I still have a lot of viewing time while I code.
 
 
-# New Variables
+## New Variables
 I created ['Normality'] which is stated by 12th of March 2020. Everything before this date is considered 'Pre-Covid', everything after is considered 'Covid'
 
 I also split the 'Karina' dataset by 'Covid_Movies' and 'Covid_TV_Show'
 
-# Comparing Habit Pre-Covid and Covid
+## Comparing Habit Pre-Covid and Covid
 Weekdays have not seen a significant changed
 
 Hour has a significant different habits. It is clear that there is a lot more viewing during the day.
 
 
-# Examining Top 15 TV Shows in Covid
+## Examining Top 15 TV Shows in Covid
 
 
-# Examining Top 15 Movie in Covid
+## Examining Top 15 Movie in Covid
