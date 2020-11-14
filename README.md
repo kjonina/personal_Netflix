@@ -23,7 +23,7 @@ My family watches Netflix as well, but I think I should only write about myself 
 Upon initial examination, here is the table of Duration.
 - Karina     90 days 01:52:53
 
-#Examining Weekdays
+# Examining Weekdays
 What day of the week do I watch the most Netflix?
 -   weekdays         Duration
 -       Mon 11 days 06:16:13
@@ -35,8 +35,7 @@ What day of the week do I watch the most Netflix?
 -       Sun 12 days 11:33:42
 
 
-#Examining Hour of the Day
-
+# Examining Hour of the Day
 
 In my defence, I use Netflix to watch as I fall asleep. I call it my cheap cure to insomnia.
 Majority of the time, I would turn on Netflix before bed and just fall asleep. 
@@ -85,7 +84,24 @@ Due to enormous amount of data when viewing Top 15 so the data was split by User
 
 In my defence of my Top 15: Sometimes, when I watch movies, I code. I put something in the background, more like white noise, which does not require much thinking or attention from actual work. 
 
-#Examining By Pre-COVID and COVID
-Covid 
+# Examining By Pre-COVID and COVID
+Covid has changed my life dramatically. As I was employed in Private Education, I found myself unemployed and, apparently, a lot of free time.  
+So I decided to find out how much of that viewing was made during Covid and Pre-Covid. 
+Considering I am unemployed (but in a part-time course in DBS, which takes up majority of my time now), I still have a lot of viewing time while I code.
 
 
+# New Variables
+I created ['Normality'] which is stated by 12th of March 2020. Everything before this date is considered 'Pre-Covid', everything after is considered 'Covid'
+
+I also split the 'Karina' dataset by 'Covid_Movies' and 'Covid_TV_Show'
+
+# Comparing Habit Pre-Covid and Covid
+Weekdays have not seen a significant changed
+
+Hour has a significant different habits. It is clear that there is a lot more viewing during the day.
+
+
+# Examining Top 15 TV Shows in Covid
+
+
+# Examining Top 15 Movie in Covid

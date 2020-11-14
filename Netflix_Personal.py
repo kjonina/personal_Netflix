@@ -138,26 +138,26 @@ df.info()
 
 
 
-# replacing 0-6 with Mon - Sun
-df['month'] = df['month'].replace(0,'Jan')
-df['month'] = df['month'].replace(1,'Feb')
-df['month'] = df['month'].replace(2,'Mar')
-df['month'] = df['month'].replace(3,'Apr')
-df['month'] = df['month'].replace(4,'May')
-df['month'] = df['month'].replace(5,'June')
-df['month'] = df['month'].replace(6,'July')
-df['month'] = df['month'].replace(7,'Aug')
-df['month'] = df['month'].replace(8,'Sep')
-df['month'] = df['month'].replace(9,'Oct')
-df['month'] = df['month'].replace(10,'Nov')
-df['month'] = df['month'].replace(11,'Dec')
-
-
-#changing to category
-df['month'] = df['month'].astype('category')
-
-#reordering weekdays
-df['month'] = df['month'].cat.reorder_categories(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], ordered=True)
+## replacing 0-6 with Mon - Sun
+#df['month'] = df['month'].replace(0,'Jan')
+#df['month'] = df['month'].replace(1,'Feb')
+#df['month'] = df['month'].replace(2,'Mar')
+#df['month'] = df['month'].replace(3,'Apr')
+#df['month'] = df['month'].replace(4,'May')
+#df['month'] = df['month'].replace(5,'June')
+#df['month'] = df['month'].replace(6,'July')
+#df['month'] = df['month'].replace(7,'Aug')
+#df['month'] = df['month'].replace(8,'Sep')
+#df['month'] = df['month'].replace(9,'Oct')
+#df['month'] = df['month'].replace(10,'Nov')
+#df['month'] = df['month'].replace(11,'Dec')
+#
+#
+##changing to category
+#df['month'] = df['month'].astype('category')
+#
+##reordering weekdays
+#df['month'] = df['month'].cat.reorder_categories(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], ordered=True)
 
 # =============================================================================
 # Creating a Variable examining Pre-Covid and Covid
@@ -288,7 +288,6 @@ plt.show()
 # =============================================================================
 # Examining dataset by Karina
 # =============================================================================
-
 #Creating the view of Karina's viewing habits
 views_by_Karina = Karina.groupby(['Title_name', 'Type']
         )['Duration'].sum().sort_values(ascending = False)
@@ -305,7 +304,7 @@ print(views_by_Karina.shape)
 # =============================================================================
 # Splitting the Type by Movie and Tv Show
 # =============================================================================
-#splitting 
+#splitting Movie and TV Show to create each dataset
 Karina_Movie = Karina[Karina['Type'] == 'Movie']
 Karina_TV_Show = Karina[Karina['Type'] == 'TV Show']
 
@@ -317,32 +316,17 @@ Karina_TV_Show = Karina[Karina['Type'] == 'TV Show']
 movie_views = Karina_Movie.groupby(['Title_name']
         )['Duration'].sum().sort_values(ascending = False)
 
+#Creating Top 15
 top_movie = movie_views.head(15)
 
-
+#Printing Top 15
 print(top_movie)
-#Gone Girl                     09:40:01
-#Gattaca                       06:08:54
-#Pride & Prejudice             05:05:23
-#Divergent                     04:39:50
-#Wedding Crashers              04:34:33
-#Inglourious Basterds          04:23:21
-#The Maze Runner               04:16:24
-#New Year's Eve                04:11:43
-#Marriage Story                04:10:32
-#P.S. I Love You               04:03:57
-#He's Just Not That Into You   04:01:22
-#The Break-Up                  03:58:16
-#Baywatch                      03:35:24
-#The Hangover                  03:19:22
-#Leap Year                     03:12:29
-
 
 #Creating a dataframe for Movie
 top_move_df = pd.DataFrame(top_movie.head(15))
 top_move_df.reset_index(inplace = True)
 top_move_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, inplace = True)
-top_move_df
+
 
 #Creating a graph for Movie
 movie_graph = sns.barplot(x = "Title_name", y = "Duration", data = top_move_df,
@@ -360,35 +344,22 @@ movie_graph.set_xticklabels(movie_graph.get_xticklabels(), rotation=90)
 
 TV_Show_view = Karina_TV_Show.groupby(['Title_name']
         )['Duration'].sum().sort_values(ascending = False)
-
+#Creating Top 15
 top_TV_Show = TV_Show_view.head(15)
 
+#Printing Top 15
 print(top_TV_Show)
-#Gossip Girl                   7 days 10:16:19
-#How I Met Your Mother         6 days 16:40:53
-#Brooklyn Nine-Nine            6 days 07:05:39
-#The Vampire Diaries           5 days 12:58:14
-#How to Get Away With Murder   5 days 10:12:54
-#Marvel's Jessica Jones        3 days 16:49:54
-#Dynasty                       3 days 10:45:15
-#iZombie                       2 days 22:24:23
-#Money Heist                   2 days 22:14:52
-#Sons of Anarchy               2 days 14:22:31
-#Suits                         2 days 11:17:31
-#House of Cards                2 days 00:56:52
-#Riverdale                     1 days 22:06:32
-#You                           1 days 20:28:53
-#Spartacus                     1 days 17:06:22
+
 
 
 #Creating a dataframe for TV Shows
-top_TV_Show_df = pd.DataFrame(top_TV_Show.head(15))
+top_TV_Show_df = pd.DataFrame(top_TV_Show)
 top_TV_Show_df.reset_index(inplace = True)
 top_TV_Show_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, inplace = True)
 top_TV_Show_df
 
 #Creating a graph for TV Shows
-TV_Show_graph=sns.barplot(x = "Title_name", y = "Duration", data = top_move_df,
+TV_Show_graph=sns.barplot(x = "Title_name", y = "Duration", data = top_TV_Show_df,
                  palette = 'Blues_d')
 TV_Show_graph.set_title('Top 15 TV Shows')
 TV_Show_graph.set_ylabel('Duration')
@@ -487,9 +458,7 @@ Covid_TV_Show = Karina_TV_Show[Karina_TV_Show['normality'] == 'Covid']
 # =============================================================================
 # COVID TV SHOW LIST
 # =============================================================================
-
-
-
+# creating a table for Covid Viewing of TV Shows
 Covid_TV_Show_view = Covid_TV_Show.groupby(['Title_name']
         )['Duration'].sum().sort_values(ascending = False)
 
@@ -559,13 +528,13 @@ print(Covid_top_movie)
 
 
 #Creating a dataframe for Movie
-Covid_top_move_df = pd.DataFrame(Covid_top_movie.head(15))
+Covid_top_move_df = pd.DataFrame(Covid_top_movie)
 Covid_top_move_df.reset_index(inplace = True)
-Covid_top_move_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, inplace = True)
+Covid_top_move_df.rename(columns={'index':'Title', 'Duration':'Duration'}, inplace = True)
 Covid_top_move_df
 
 #Creating a graph for Movie
-Covid_movie_graph = sns.barplot(x = "Title_name", y = "Duration", data = Covid_top_move_df,
+Covid_movie_graph = sns.barplot(x = "Title_name", y = "Duration", data = Covid_top_movie,
                  palette='Blues_d')
 Covid_movie_graph.set_title('Top 15 Movies')
 Covid_movie_graph.set_ylabel('Duration')
