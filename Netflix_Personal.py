@@ -22,7 +22,7 @@ from wordcloud import WordCloud
 from sklearn.feature_extraction.text import CountVectorizer #Bag of Words
 
 # read the CSV file
-df = pd.read_csv('ViewingActivity.csv')
+df = pd.read_csv('ViewingActihoury.csv')
 
 # Will ensure that all columns are displayed
 pd.set_option('display.max_columns', None) 
@@ -57,14 +57,9 @@ df.isnull().sum()
 #Latest Bookmark               0
 #Country                       0
 
-
-
-
 # checking the df shape
 print(df.shape)
 # (10106, 10)
-
-
 
 # =============================================================================
 # Droping Columns
@@ -76,7 +71,7 @@ print(df.head())
 #creating a new variable called SVT where data is null or not null
 df['SVT'] = df['Supplemental Video Type'].isnull()
 
-# Trying to create a dataset with only True as SVT
+# Trying to create  a dataset with only True as SVT
 df1 = df[df.SVT == True]
 
 #dropping unnecesary columns
@@ -98,30 +93,6 @@ df1['Start Time'] = pd.to_datetime(df1['Start Time'], utc = True)
 #changing Duration to time account
 df1['Duration'] = pd.to_timedelta(df1['Duration'])
 
-# examining individual users hours spent on Netflix
-df1['Duration'].groupby(df1['Profile Name']).sum()
-
-#Profile Name
-#Karina     90 days 01:52:53
-#User2   21 days 17:37:15
-#User3         4 days 06:26:10
-
-
-''' FIx graph '''
-# Examines the Profile Names 
-plt.figure(figsize = (12, 8))
-sns.countplot(x = 'Profile Name', data = df1, palette = 'viridis', order = df1['Profile Name'].value_counts().index)
-plt.xticks(rotation = 90)
-plt.title('Breakdown of Profile Name', fontsize = 16)
-plt.ylabel('count', fontsize = 14)
-plt.xlabel('Profile Name', fontsize = 14)
-plt.show()
-
-'''
-Dad only recently started watching Netflix so a line graph with time would be more appropriate
-Also: this just the number of times the user was logged on.
-'''
-
 
 # =============================================================================
 # Creating Weekdays 
@@ -135,27 +106,21 @@ df1['weekdays'] = pd.Categorical(df1['weekdays'],
        categories = [0,1,2,3,4,5,6],
        ordered = True)
 
+# replacing 0-6 with Mon - Sun
+df1['weekdays'] = df1['weekdays'].replace(0,'Mon')
+df1['weekdays'] = df1['weekdays'].replace(1,'Tue')
+df1['weekdays'] = df1['weekdays'].replace(2,'Wed')
+df1['weekdays'] = df1['weekdays'].replace(3,'Thu')
+df1['weekdays'] = df1['weekdays'].replace(4,'Fri')
+df1['weekdays'] = df1['weekdays'].replace(5,'Sat')
+df1['weekdays'] = df1['weekdays'].replace(6,'Sun')
 
-''' FIX COLUMNS '''
-# find the table
-df1.groupby('Profile Name')['weekdays'].value_counts()
+#changing to category
+df1['weekdays'] = df1['weekdays'].astype('category')
 
-# create the table
-views_per_day = df1.groupby(
-        ['Profile Name', 'weekdays']
-        )['Duration'].sum().reset_index()
-
-
-''' FIX COLUMNS '''
-plotdata = views_per_day.pivot(index = 'weekdays',
-                                columns = 'Profile Name',
-                                values = 'Duration')
-
-plotdata.plot(kind = 'bar')
-
-
-
-
+#reordering weekdays
+df1['weekdays'] = df1['weekdays'].cat.reorder_categories(['Mon', 
+   'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], ordered=True)
 
 
 # =============================================================================
@@ -168,127 +133,120 @@ df1['hour'] = pd.Categorical(df1['hour'],
        categories = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
        ordered = True)
 
-# find the table
-views_per_user = df1.groupby(
-        ['Profile Name', 'hour']
+
+
+# =============================================================================
+# Creating separate datasets for Me
+# =============================================================================
+
+Karina = df1[df1['Profile Name'] == 'Karina']
+
+# examining my hours spent on Netflix
+Karina['Duration'].sum()
+
+#'90 days 01:52:53'
+
+# =============================================================================
+# Checking Weekdays
+# =============================================================================
+# create the table
+Karina['weekdays'].value_counts()
+
+# create  the table
+views_per_day = Karina.groupby(
+        ['weekdays']
+        )['Duration'].sum().reset_index()
+
+print(views_per_day)
+#  weekdays         Duration
+#0      Mon 11 days 06:16:13
+#1      Tue 11 days 01:22:45
+#2      Wed 12 days 06:48:28
+#3      Thu 13 days 02:25:43
+#4      Fri 14 days 08:24:55
+#5      Sat 15 days 13:01:07
+#6      Sun 12 days 11:33:42
+
+
+plt.figure(figsize = (12, 8))
+views_per_day.plot(kind = 'bar')
+plt.xticks(rotation = 90)
+plt.title('Time spent on Netflix for each Weekday', fontsize = 14)
+plt.ylabel('Duration', fontsize = 12)
+plt.xlabel('Weekdays', fontsize = 12)
+plt.show()
+
+
+# =============================================================================
+# Checking the hour of the day
+# =============================================================================
+
+# create the table
+views_per_hour = df1.groupby(
+        ['hour']
         )['Duration'].count().reset_index()
 
+# generating the table
+print(views_per_hour)
 
-plotdata1 = views_per_user.pivot(index = 'Profile Name',
-                                columns = 'hour',
-                                values = 'Duration')
+plt.figure(figsize = (12, 8))
+views_per_hour.plot(kind = 'bar')
+plt.xticks(rotation = 90)
+plt.title('The amount of hours spend on each hour', fontsize = 14)
+plt.ylabel('Duration', fontsize = 12)
+plt.xlabel('Weekdays', fontsize = 12)
+plt.show()
 
-plotdata1.plot(kind = 'bar')
 
-df1.groupby('Profile Name')['hour'].value_counts()
 
 # =============================================================================
 # Creating variable called Type: Tv Show or Movie
 # =============================================================================
 
-#trying to find the all the names with Season and create a new variable called Type
-df1.loc[df1['Title'].str.contains(': '), 'Type'] = 'TV Show'
+# trying to create the all the names with Season and create  a new variable called Type
+Karina.loc[Karina['Title'].str.contains(': '), 'Type'] = 'TV Show'
 
-#Trying to create Movie in Type
-df1.loc[df1['Type'].isnull(), 'Type'] = 'Movie'
+# Trying to create  Movie in Type
+Karina.loc[Karina['Type'].isnull(), 'Type'] = 'Movie'
 
 
-#visualising duration and profile Name type
-views_per_user_by_Type = df1.groupby(
-        ['Profile Name', 'Type']
+# visualising duration and profile Name type
+views_by_Type = Karina.groupby(
+        ['Type']
         )['Duration'].sum().reset_index()
 
-#Creating table to view Duration by Name and Type
-pivot_movie_name = pd.DataFrame({'A': df1['Profile Name'],
-                   'B': df1['Type'],
-                   'C': df1['Duration']})
 
-# Pivoting the talbe
-pivot_movie_name = pd.pivot_table(pivot_movie_name, values='C', index=['A'], columns=['B'], aggfunc='sum')
+print(views_by_Type )
+#       Type         Duration
+# 0    Movie  8 days 00:12:30
+# 1  TV Show 82 days 01:40:23
 
-#Produce the table
-print(pivot_movie_name)
-#B                   Movie          TV Show
-#A                                         
-#Karina   22 days 03:48:58 67 days 22:03:55
-#User2 10 days 04:41:23 11 days 12:55:52
-#User3       1 days 10:28:40  2 days 19:57:30
 
-plotdata2 = views_per_user_by_Type.pivot(index = 'Profile Name',
-                                columns = 'Type',
-                                values = 'Duration')
+plt.figure(figsize = (12, 8))
+views_by_Type.plot(kind = 'bar')
+plt.xticks(rotation = 90)
+plt.title('TV Show or Movie?', fontsize = 14)
+plt.ylabel('Duration', fontsize = 12)
+plt.show()
 
-plotdata2.plot(kind = 'bar')
+
 
 # =============================================================================
 # Removing Seasons and Episodes from text in Titles
 # =============================================================================
 
-df1['Title_name'] = (np.where(df1['Title'].str.contains(': '),
-                  df1['Title'].str.split(':').str[0],
-                  df1['Title']))
-
-
-views_by_Title_name = df1.groupby(['Title_name']
-        )['Duration'].sum().reset_index()
-
-
-# =============================================================================
-# Duration by Profile Name and Titles
-# =============================================================================
-#visualising duration by profile Name and title
-views_by_Title_name = df1.groupby(
-        ['Title_name']
-        )['Duration'].sum().sort_values(ascending=False)
-
-#Creating table to view Duration by Name and title
-pivot_title_name = pd.DataFrame({'A': df1['Profile Name'],
-                   'B': df1['Title_name'],
-                   'C': df1['Duration']})
-
-# Pivoting the table
-pivot_title_name1 = pd.pivot_table(pivot_title_name, values='C', index=['B'], columns=['A'], aggfunc='sum')
-
-#Produce the table
-print(pivot_title_name1)
-
-
-# =============================================================================
-# Creating separate datasets for each user to analyse Top Movies and TV Shows for each user
-# =============================================================================
-
-Karina = df1[df1['Profile Name'] == 'Karina']
-
-User2 = df1[df1['Profile Name'] == 'User2']
-
-User3 = df1[df1['Profile Name'] == 'User3']
+Karina['Title_name'] = (np.where(Karina['Title'].str.contains(': '),
+                  Karina['Title'].str.split(':').str[0],
+                  Karina['Title']))
 
 
 # =============================================================================
 # Examining dataset by Karina
 # =============================================================================
 
-# create the table
-views_Karina_per_hour = Karina.groupby(
-        ['hour']
-        )['Duration'].count().reset_index()
-
-#plotting the table
-views_Karina_per_hour.plot()
-
-
-# create the table
-views_Karina_per_day = Karina.groupby(
-        ['weekdays']
-        )['Duration'].sum().reset_index()
-
-#plotting the table
-views_Karina_per_day.plot()
-
-
 #Creating the view of Karina's viewing habits
 views_by_Karina = Karina.groupby(['Title_name', 'Type']
-        )['Duration'].sum().sort_values(ascending=False)
+        )['Duration'].sum().sort_values(ascending = False)
 
 # Viewing Karina's Top 50 most watched (in Duration) Tv Shows and Movies
 views_by_Karina.head(20)
@@ -296,121 +254,125 @@ views_by_Karina.head(20)
 # Viewing Karina's Bottom 15 watched (in Duration) Tv Shows and Movies
 views_by_Karina.tail(15)
 
-
 #examining the shape of the data
 print(views_by_Karina.shape)
 
-#Too much data so it needs to be split by Movie and Tv Show
-
+# =============================================================================
+# Splitting the Type by Movie and Tv Show
+# =============================================================================
+#splitting 
 Karina_Movie = Karina[Karina['Type'] == 'Movie']
 Karina_TV_Show = Karina[Karina['Type'] == 'TV Show']
 
-#Creating the view of Karina's viewing habits By Movie
-movie_views_by_Karina = Karina_Movie.groupby(['Title_name']
-        )['Duration'].sum().sort_values(ascending=False)
 
-# Viewing Karina's Top 50 most watched (in Duration) Movies
-movie_views_by_Karina.head(15)
+# =============================================================================
+# Examining Movies 
+# =============================================================================
 
-# Viewing Karina's Bottom 15 watched (in Duration) Movies
-movie_views_by_Karina.tail(15)
+movie_views = Karina_Movie.groupby(['Title_name']
+        )['Duration'].sum().sort_values(ascending = False)
+
+top_movie = movie_views.head(15)
 
 
-#Creating the view of Karina's viewing habits By TV Shows
-TV_Shows_views_by_Karina = Karina_TV_Show.groupby(['Title_name']
-        )['Duration'].sum().sort_values(ascending=False)
+print(top_movie)
+#Gone Girl                     09:40:01
+#Gattaca                       06:08:54
+#Pride & Prejudice             05:05:23
+#Divergent                     04:39:50
+#Wedding Crashers              04:34:33
+#Inglourious Basterds          04:23:21
+#The Maze Runner               04:16:24
+#New Year's Eve                04:11:43
+#Marriage Story                04:10:32
+#P.S. I Love You               04:03:57
+#He's Just Not That Into You   04:01:22
+#The Break-Up                  03:58:16
+#Baywatch                      03:35:24
+#The Hangover                  03:19:22
+#Leap Year                     03:12:29
 
-# Viewing Karina's Top 50 most watched (in Duration) Tv Shows 
-TV_Shows_views_by_Karina.head(15)
 
-# Viewing Karina's Bottom 15 watched (in Duration) Tv Shows 
-TV_Shows_views_by_Karina.tail(15)
+#Creating a dataframe for Movie
+top_move_df = pd.DataFrame(top_movie.head(15))
+top_move_df.reset_index(inplace = True)
+top_move_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, inplace = True)
+top_move_df
+
+#Creating a graph for Movie
+movie_graph = sns.barplot(x = "Title_name", y = "Duration", data = top_move_df,
+                 palette='Blues_d')
+movie_graph.set_title('Top 15 Movies')
+movie_graph.set_ylabel('Duration')
+movie_graph.set_xlabel('Movies')
+movie_graph.set_xticklabels(movie_graph.get_xticklabels(), rotation=90)
+
 
 
 # =============================================================================
-# Examining dataset by User2
+# Examining TV Show
 # =============================================================================
-User2['Title_name'].unique()
 
-# Examining the most clicks
-User2.groupby(['Title_name']).size().sort_values(ascending=False)
+TV_Show_view = Karina_TV_Show.groupby(['Title_name']
+        )['Duration'].sum().sort_values(ascending = False)
 
+top_TV_Show = TV_Show_view.head(15)
 
-# find the table
-views_User2 = User2.groupby(
-        ['hour']
-        )['Duration'].count().reset_index()
-
-
-
-
-#Creating the view of User2's viewing habits
-views_by_User2 = User2.groupby(['Title_name', 'Type']
-        )['Duration'].sum().sort_values(ascending=False)
-
-# Viewing User2's Top 50 most watched (in Duration) Tv Shows and Movies
-views_by_User2.head(50)
-
-# Viewing User2's Bottom 15 watched (in Duration) Tv Shows and Movies
-views_by_User2.tail(15)
-
-#examining the shape of the data
-print(views_by_User2.shape)
+print(top_TV_Show)
+#Gossip Girl                   7 days 10:16:19
+#How I Met Your Mother         6 days 16:40:53
+#Brooklyn Nine-Nine            6 days 07:05:39
+#The Vampire Diaries           5 days 12:58:14
+#How to Get Away With Murder   5 days 10:12:54
+#Marvel's Jessica Jones        3 days 16:49:54
+#Dynasty                       3 days 10:45:15
+#iZombie                       2 days 22:24:23
+#Money Heist                   2 days 22:14:52
+#Sons of Anarchy               2 days 14:22:31
+#Suits                         2 days 11:17:31
+#House of Cards                2 days 00:56:52
+#Riverdale                     1 days 22:06:32
+#You                           1 days 20:28:53
+#Spartacus                     1 days 17:06:22
 
 
+#Creating a dataframe for TV Shows
+top_TV_Show_df = pd.DataFrame(top_TV_Show.head(15))
+top_TV_Show_df.reset_index(inplace = True)
+top_TV_Show_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, inplace = True)
+top_TV_Show_df
 
-#Too much data so it needs to be split by Movie and Tv Show
-
-User2_Movie = User2[User2['Type'] == 'Movie']
-User2_TV_Show = User2[User2['Type'] == 'TV Show']
-
-#Creating the view of User2's viewing habits By Movie
-movie_views_by_User2 = User2_Movie.groupby(['Title_name']
-        )['Duration'].sum().sort_values(ascending=False)
-
-# Viewing User2's Top 50 most watched (in Duration) Movies
-movie_views_by_User2.head(50)
-
-# Viewing User2's Bottom 15 watched (in Duration)  Movies
-movie_views_by_User2.tail(15)
+#Creating a graph for TV Shows
+TV_Show_graph=sns.barplot(x = "Title_name", y = "Duration", data = top_move_df,
+                 palette = 'Blues_d')
+TV_Show_graph.set_title('Top 15 TV Shows')
+TV_Show_graph.set_ylabel('Duration')
+TV_Show_graph.set_xlabel('TV Shows')
+TV_Show_graph.set_xticklabels(TV_Show_graph.get_xticklabels(), rotation = 90)
 
 
-#Creating the view of User2's viewing habits By TV Shows
-TV_Shows_views_by_User2 = User2_TV_Show.groupby(['Title_name']
-        )['Duration'].sum().sort_values(ascending=False)
-
-# Viewing User2's Top 50 most watched (in Duration) Tv Shows
-TV_Shows_views_by_User2.head(50)
-
-# Viewing User2's Bottom 15 watched (in Duration) Tv Shows 
-TV_Shows_views_by_User2.tail(15)
 
 
 # =============================================================================
-# Examining dataset by User3
+# 
 # =============================================================================
 
-#Creating the view of User3's viewing habits
-views_by_User3 = User3.groupby(
-        ['Title_name', 'Type']
-        )['Duration'].sum().sort_values(ascending=False)
 
-# Viewing User3's Top 50 most watched (in Duration) Tv Shows and Movies
-views_by_User3.head(50)
 
-# Viewing User2's Bottom 15 watched (in Duration) Tv Shows and Movies
-views_by_User3.tail(15)
 
-#examining the shape of the data
-print(views_by_User3.shape)
+
+
+
+
+
 
 
 '''
 FUTURE RESEARCH IDEAS
 
-Draw line graph with time + duration with 3 different lines for each user
+Draw line graph with time + duration with 3 different lines for each hour
 
-Create a snapshot of when the users are all using Netflix
+create  a snapshot of when the hours are all using Netflix
 
 Analyse Titles
 
