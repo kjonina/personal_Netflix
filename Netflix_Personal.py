@@ -84,7 +84,7 @@ df1 = df1.drop(['SVT', 'Supplemental Video Type'], axis = 1)
 
 
 # =============================================================================
-# DataTime
+# Correcting Variables Types
 # =============================================================================
 #checking data types
 df1.dtypes
@@ -103,11 +103,11 @@ df1['Duration'].groupby(df1['Profile Name']).sum()
 
 #Profile Name
 #Karina     90 days 01:52:53
-#Karolina   21 days 17:37:15
-#Vit         4 days 06:26:10
+#User2   21 days 17:37:15
+#User3         4 days 06:26:10
 
 
-
+''' FIx graph '''
 # Examines the Profile Names 
 plt.figure(figsize = (12, 8))
 sns.countplot(x = 'Profile Name', data = df1, palette = 'viridis', order = df1['Profile Name'].value_counts().index)
@@ -136,33 +136,17 @@ df1['weekdays'] = pd.Categorical(df1['weekdays'],
        ordered = True)
 
 
-
+''' FIX COLUMNS '''
 # find the table
 df1.groupby('Profile Name')['weekdays'].value_counts()
 
-
-# Manual insertion of data. Is there a better way to do this?
-new_df1 = pd.DataFrame({
-    "Karina":[820,880,911,994,1187,1137,848],
-    "Karolina":[304,243,289,295,234,562,960],
-    "Vit":[80, 92, 92, 72, 125,121, 113]
-    }, 
-    index=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", 'Sun']
-)
-new_df1.plot(kind="bar")
-plt.title("Netflix Consumption Study")
-plt.xlabel("Family Member")
-plt.ylabel("Neftlix")
-
-
-
-
-# find the table
+# create the table
 views_per_day = df1.groupby(
         ['Profile Name', 'weekdays']
         )['Duration'].sum().reset_index()
 
 
+''' FIX COLUMNS '''
 plotdata = views_per_day.pivot(index = 'weekdays',
                                 columns = 'Profile Name',
                                 values = 'Duration')
@@ -227,8 +211,8 @@ print(pivot_movie_name)
 #B                   Movie          TV Show
 #A                                         
 #Karina   22 days 03:48:58 67 days 22:03:55
-#Karolina 10 days 04:41:23 11 days 12:55:52
-#Vit       1 days 10:28:40  2 days 19:57:30
+#User2 10 days 04:41:23 11 days 12:55:52
+#User3       1 days 10:28:40  2 days 19:57:30
 
 plotdata2 = views_per_user_by_Type.pivot(index = 'Profile Name',
                                 columns = 'Type',
@@ -247,8 +231,6 @@ df1['Title_name'] = (np.where(df1['Title'].str.contains(': '),
 
 views_by_Title_name = df1.groupby(['Title_name']
         )['Duration'].sum().reset_index()
-
-
 
 
 # =============================================================================
@@ -272,25 +254,44 @@ print(pivot_title_name1)
 
 
 # =============================================================================
-# Creating separate datasets for each user to analyse Top 15
+# Creating separate datasets for each user to analyse Top Movies and TV Shows for each user
 # =============================================================================
 
 Karina = df1[df1['Profile Name'] == 'Karina']
 
-Karolina = df1[df1['Profile Name'] == 'Karolina']
+User2 = df1[df1['Profile Name'] == 'User2']
 
-Vit = df1[df1['Profile Name'] == 'Vit']
+User3 = df1[df1['Profile Name'] == 'User3']
 
 
 # =============================================================================
 # Examining dataset by Karina
 # =============================================================================
+
+# create the table
+views_Karina_per_hour = Karina.groupby(
+        ['hour']
+        )['Duration'].count().reset_index()
+
+#plotting the table
+views_Karina_per_hour.plot()
+
+
+# create the table
+views_Karina_per_day = Karina.groupby(
+        ['weekdays']
+        )['Duration'].sum().reset_index()
+
+#plotting the table
+views_Karina_per_day.plot()
+
+
 #Creating the view of Karina's viewing habits
 views_by_Karina = Karina.groupby(['Title_name', 'Type']
         )['Duration'].sum().sort_values(ascending=False)
 
 # Viewing Karina's Top 50 most watched (in Duration) Tv Shows and Movies
-views_by_Karina.head(50)
+views_by_Karina.head(20)
 
 # Viewing Karina's Bottom 15 watched (in Duration) Tv Shows and Movies
 views_by_Karina.tail(15)
@@ -309,7 +310,7 @@ movie_views_by_Karina = Karina_Movie.groupby(['Title_name']
         )['Duration'].sum().sort_values(ascending=False)
 
 # Viewing Karina's Top 50 most watched (in Duration) Movies
-movie_views_by_Karina.head(50)
+movie_views_by_Karina.head(15)
 
 # Viewing Karina's Bottom 15 watched (in Duration) Movies
 movie_views_by_Karina.tail(15)
@@ -320,83 +321,93 @@ TV_Shows_views_by_Karina = Karina_TV_Show.groupby(['Title_name']
         )['Duration'].sum().sort_values(ascending=False)
 
 # Viewing Karina's Top 50 most watched (in Duration) Tv Shows 
-TV_Shows_views_by_Karina.head(50)
+TV_Shows_views_by_Karina.head(15)
 
 # Viewing Karina's Bottom 15 watched (in Duration) Tv Shows 
 TV_Shows_views_by_Karina.tail(15)
 
 
 # =============================================================================
-# Examining dataset by Karolina
+# Examining dataset by User2
 # =============================================================================
-Karolina['Title_name'].unique()
-
+User2['Title_name'].unique()
 
 # Examining the most clicks
-Karolina.groupby(['Title_name']).size().sort_values(ascending=False)
+User2.groupby(['Title_name']).size().sort_values(ascending=False)
 
-#Creating the view of Karolina's viewing habits
-views_by_Karolina = Karolina.groupby(['Title_name', 'Type']
+
+# find the table
+views_User2 = User2.groupby(
+        ['hour']
+        )['Duration'].count().reset_index()
+
+
+
+
+#Creating the view of User2's viewing habits
+views_by_User2 = User2.groupby(['Title_name', 'Type']
         )['Duration'].sum().sort_values(ascending=False)
 
-# Viewing Karolina's Top 50 most watched (in Duration) Tv Shows and Movies
-views_by_Karolina.head(50)
+# Viewing User2's Top 50 most watched (in Duration) Tv Shows and Movies
+views_by_User2.head(50)
 
-# Viewing Karolina's Bottom 15 watched (in Duration) Tv Shows and Movies
-views_by_Karolina.tail(15)
+# Viewing User2's Bottom 15 watched (in Duration) Tv Shows and Movies
+views_by_User2.tail(15)
 
 #examining the shape of the data
-print(views_by_Karolina.shape)
+print(views_by_User2.shape)
 
 
 
 #Too much data so it needs to be split by Movie and Tv Show
 
-Karolina_Movie = Karolina[Karolina['Type'] == 'Movie']
-Karolina_TV_Show = Karolina[Karolina['Type'] == 'TV Show']
+User2_Movie = User2[User2['Type'] == 'Movie']
+User2_TV_Show = User2[User2['Type'] == 'TV Show']
 
-#Creating the view of Karolina's viewing habits By Movie
-movie_views_by_Karolina = Karolina_Movie.groupby(['Title_name']
+#Creating the view of User2's viewing habits By Movie
+movie_views_by_User2 = User2_Movie.groupby(['Title_name']
         )['Duration'].sum().sort_values(ascending=False)
 
-# Viewing Karolina's Top 50 most watched (in Duration) Movies
-movie_views_by_Karolina.head(50)
+# Viewing User2's Top 50 most watched (in Duration) Movies
+movie_views_by_User2.head(50)
 
-# Viewing Karolina's Bottom 15 watched (in Duration)  Movies
-movie_views_by_Karolina.tail(15)
+# Viewing User2's Bottom 15 watched (in Duration)  Movies
+movie_views_by_User2.tail(15)
 
 
-#Creating the view of Karolina's viewing habits By TV Shows
-TV_Shows_views_by_Karolina = Karolina_TV_Show.groupby(['Title_name']
+#Creating the view of User2's viewing habits By TV Shows
+TV_Shows_views_by_User2 = User2_TV_Show.groupby(['Title_name']
         )['Duration'].sum().sort_values(ascending=False)
 
-# Viewing Karolina's Top 50 most watched (in Duration) Tv Shows
-TV_Shows_views_by_Karolina.head(50)
+# Viewing User2's Top 50 most watched (in Duration) Tv Shows
+TV_Shows_views_by_User2.head(50)
 
-# Viewing Karolina's Bottom 15 watched (in Duration) Tv Shows 
-TV_Shows_views_by_Karolina.tail(15)
+# Viewing User2's Bottom 15 watched (in Duration) Tv Shows 
+TV_Shows_views_by_User2.tail(15)
 
 
 # =============================================================================
-# Examining dataset by Vit
+# Examining dataset by User3
 # =============================================================================
 
-#Creating the view of Vit's viewing habits
-views_by_Vit = Vit.groupby(
+#Creating the view of User3's viewing habits
+views_by_User3 = User3.groupby(
         ['Title_name', 'Type']
         )['Duration'].sum().sort_values(ascending=False)
 
-# Viewing Vit's Top 50 most watched (in Duration) Tv Shows and Movies
-views_by_Vit.head(50)
+# Viewing User3's Top 50 most watched (in Duration) Tv Shows and Movies
+views_by_User3.head(50)
 
-# Viewing Karolina's Bottom 15 watched (in Duration) Tv Shows and Movies
-views_by_Vit.tail(15)
+# Viewing User2's Bottom 15 watched (in Duration) Tv Shows and Movies
+views_by_User3.tail(15)
 
 #examining the shape of the data
-print(views_by_Vit.shape)
+print(views_by_User3.shape)
 
 
 '''
+FUTURE RESEARCH IDEAS
+
 Draw line graph with time + duration with 3 different lines for each user
 
 Create a snapshot of when the users are all using Netflix
