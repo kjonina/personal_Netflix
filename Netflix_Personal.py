@@ -247,7 +247,7 @@ plt.show()
 # =============================================================================
 
 # create the table
-views_per_hour = df.groupby(
+views_per_hour = Karina.groupby(
         ['hour']
         )['Duration'].count().reset_index()
 
@@ -395,19 +395,102 @@ TV_Show_graph.set_ylabel('Duration')
 TV_Show_graph.set_xlabel('TV Shows')
 TV_Show_graph.set_xticklabels(TV_Show_graph.get_xticklabels(), rotation = 90)
 
+
+
 # =============================================================================
-# Split by Covid
+# Analysing Pre-Covid and Covid Viewing Habits
+# =============================================================================
+# Analyse data
+
+comparing_habits = pd.DataFrame({'Normality': Karina['normality'],
+                   'Hour': Karina['hour'],
+                   'Weekdays': Karina['weekdays'],
+                   'Duration': Karina['Duration']})
+    
+comparing_habits_WD_pivot = pd.pivot_table(
+        comparing_habits, values='Duration', index=['Weekdays'], columns=['Normality'], aggfunc=np.sum)
+
+# Compare the data
+print(comparing_habits_WD_pivot)
+#A             Covid        Pre-Covid
+#C                                   
+#Mon 1 days 19:27:22  9 days 10:48:51
+#Tue 2 days 14:34:10  8 days 10:48:35
+#Wed 2 days 12:23:10  9 days 18:25:18
+#Thu 3 days 15:22:07  9 days 10:45:32
+#Fri 3 days 20:37:57 10 days 11:46:58
+#Sat 3 days 03:23:11 12 days 09:37:56
+#Sun 2 days 04:03:42 10 days 07:30:00
+
+
+plt.figure(figsize = (12, 8))
+comparing_habits_WD_pivot.plot(kind = 'bar')
+plt.xticks(rotation = 90)
+plt.title('Viewing Habits for Weekday', fontsize = 14)
+plt.ylabel('Duration', fontsize = 12)
+plt.xlabel('Weekdays', fontsize = 12)
+plt.show()
+
+
+comparing_habits_HRS_pivot = pd.pivot_table(
+        comparing_habits, values='Duration', index=['Hour'], columns=['Normality'], aggfunc=np.sum)
+
+# Compare the data
+print(comparing_habits_HRS_pivot)
+#Normality           Covid        Pre-Covid
+#Hour                                      
+#0         0 days 14:45:57  5 days 10:59:59
+#1         0 days 09:06:41  3 days 04:25:16
+#2         0 days 02:42:58  2 days 09:18:18
+#3         0 days 01:37:58  1 days 18:11:27
+#4         0 days 03:28:09  1 days 06:26:35
+#5         0 days 05:21:30  1 days 01:15:49
+#6         0 days 09:19:23  0 days 18:18:09
+#7         0 days 12:16:01  1 days 08:16:58
+#8         0 days 18:31:23  1 days 09:01:39
+#9         0 days 16:12:53  1 days 05:47:19
+#10        0 days 15:10:08  1 days 08:13:29
+#11        0 days 21:10:02  0 days 23:12:02
+#12        1 days 01:16:07  1 days 05:41:01
+#13        0 days 21:12:53  1 days 05:33:17
+#14        0 days 21:04:03  1 days 00:32:54
+#15        1 days 02:54:27  1 days 07:21:45
+#16        0 days 22:16:19  1 days 18:21:33
+#17        1 days 02:27:45  2 days 09:55:51
+#18        0 days 17:25:27  3 days 00:14:31
+#19        1 days 03:55:54  3 days 04:23:37
+#20        0 days 21:47:21  5 days 01:30:09
+#21        2 days 05:00:52  8 days 12:16:28
+#22        2 days 02:09:37 10 days 11:48:08
+#23        1 days 06:37:51  8 days 22:36:56
+
+
+plt.figure(figsize = (12, 8))
+comparing_habits_HRS_pivot.plot(kind = 'bar')
+plt.xticks(rotation = 90)
+plt.title('Viewing Habits for Hour of Day', fontsize = 14)
+plt.ylabel('Duration', fontsize = 12)
+plt.xlabel('Hour of day', fontsize = 12)
+plt.show()
+
+
+# =============================================================================
+# Split Covid by Movie and TV Show
+# =============================================================================
+Pre_Covid_Movie = Karina_Movie[Karina_Movie['normality'] == 'Pre-Covid']
+Pre_Covid_TV_Show= Karina_TV_Show[Karina_TV_Show['normality'] == 'Pre-Covid']
+
+
+Covid_Movie = Karina_Movie[Karina_Movie['normality'] == 'Covid']
+Covid_TV_Show = Karina_TV_Show[Karina_TV_Show['normality'] == 'Covid']
+
+# =============================================================================
+# COVID TV SHOW LIST
 # =============================================================================
 
-Pre_Covid = Karina[Karina['normality'] == 'Pre-Covid']
-Covid = Karina[Karina['normality'] == 'Covid']
 
 
-Pre_TV_Show_view = Pre_Covid.groupby(['Title_name']
-        )['Duration'].sum().sort_values(ascending = False)
-
-
-Covid_TV_Show_view = Covid.groupby(['Title_name']
+Covid_TV_Show_view = Covid_TV_Show.groupby(['Title_name']
         )['Duration'].sum().sort_values(ascending = False)
 
 
@@ -446,6 +529,48 @@ top_TV_Show_mid_COVID_graph.set_xlabel('TV Shows')
 top_TV_Show_mid_COVID_graph.set_xticklabels(top_TV_Show_mid_COVID_graph.get_xticklabels(), rotation = 90)
 
 
+# =============================================================================
+# COVID MOVIES LIST
+# =============================================================================
+
+Covid_movie_views = Covid_Movie.groupby(['Title_name']
+        )['Duration'].sum().sort_values(ascending = False)
+
+Covid_top_movie = Covid_movie_views.head(15)
+
+
+print(Covid_top_movie)
+
+#The Break-Up                   03:58:16
+#Gone Girl                      03:05:51
+#Wedding Crashers               02:51:50
+#Holidate                       02:51:19
+#The Five-Year Engagement       02:46:19
+#Spenser Confidential           02:43:48
+#Sex and the City 2             02:27:50
+#The Old Guard                  02:17:05
+#Love Wedding Repeat            02:14:33
+#Love, Guaranteed               02:06:09
+#Marriage Story                 02:03:47
+#How to Lose a Guy in 10 Days   02:01:14
+#Anna Karenina                  02:00:40
+#He's Just Not That Into You    02:00:09
+#Think Like a Man               01:54:18
+
+
+#Creating a dataframe for Movie
+Covid_top_move_df = pd.DataFrame(Covid_top_movie.head(15))
+Covid_top_move_df.reset_index(inplace = True)
+Covid_top_move_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, inplace = True)
+Covid_top_move_df
+
+#Creating a graph for Movie
+Covid_movie_graph = sns.barplot(x = "Title_name", y = "Duration", data = Covid_top_move_df,
+                 palette='Blues_d')
+Covid_movie_graph.set_title('Top 15 Movies')
+Covid_movie_graph.set_ylabel('Duration')
+Covid_movie_graph.set_xlabel('Movies')
+Covid_movie_graph.set_xticklabels(Covid_movie_graph.get_xticklabels(), rotation=90)
 
 
 
