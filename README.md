@@ -26,13 +26,13 @@ Upon initial examination, here is the table of Duration.
 #Examining Weekdays
 What day of the week do I watch the most Netflix?
 -   weekdays         Duration
-- 0      Mon 11 days 06:16:13
-- 1      Tue 11 days 01:22:45
-- 2      Wed 12 days 06:48:28
-- 3      Thu 13 days 02:25:43
-- 4      Fri 14 days 08:24:55
-- 5      Sat 15 days 13:01:07
-- 6      Sun 12 days 11:33:42
+-       Mon 11 days 06:16:13
+-       Tue 11 days 01:22:45
+-       Wed 12 days 06:48:28
+-       Thu 13 days 02:25:43
+-       Fri 14 days 08:24:55
+-       Sat 15 days 13:01:07
+-       Sun 12 days 11:33:42
 
 
 #Examining Hour of the Day

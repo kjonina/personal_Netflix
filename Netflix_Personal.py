@@ -22,7 +22,7 @@ from wordcloud import WordCloud
 from sklearn.feature_extraction.text import CountVectorizer #Bag of Words
 
 # read the CSV file
-df = pd.read_csv('ViewingActihoury.csv')
+df = pd.read_csv('ViewingActivity.csv')
 
 # Will ensure that all columns are displayed
 pd.set_option('display.max_columns', None) 
@@ -72,79 +72,144 @@ print(df.head())
 df['SVT'] = df['Supplemental Video Type'].isnull()
 
 # Trying to create  a dataset with only True as SVT
-df1 = df[df.SVT == True]
+df = df[df.SVT == True]
 
 #dropping unnecesary columns
-df1 = df1.drop(['SVT', 'Supplemental Video Type'], axis = 1)
+df = df.drop(['SVT', 'Supplemental Video Type'], axis = 1)
 
 
 # =============================================================================
 # Correcting Variables Types
 # =============================================================================
 #checking data types
-df1.dtypes
+df.dtypes
 
 #changing Profile Name to a categorical variable
-df1['Profile Name'] = df1['Profile Name'].astype('category')
+df['Profile Name'] = df['Profile Name'].astype('category')
 
 # changing Start Time to Date Time in UTC Time Zone
-df1['Start Time'] = pd.to_datetime(df1['Start Time'], utc = True)
+df['Start Time'] = pd.to_datetime(df['Start Time'], utc = True)
 
 #changing Duration to time account
-df1['Duration'] = pd.to_timedelta(df1['Duration'])
+df['Duration'] = pd.to_timedelta(df['Duration'])
 
 
 # =============================================================================
 # Creating Weekdays 
 # =============================================================================
 # creating a weekday variable
-df1['weekdays'] =  df1['Start Time'].dt.weekday
+df['weekdays'] =  df['Start Time'].dt.weekday
 
 
 # making 'weekdays' a categorical variable
-df1['weekdays'] = pd.Categorical(df1['weekdays'], 
+df['weekdays'] = pd.Categorical(df['weekdays'], 
        categories = [0,1,2,3,4,5,6],
        ordered = True)
 
 # replacing 0-6 with Mon - Sun
-df1['weekdays'] = df1['weekdays'].replace(0,'Mon')
-df1['weekdays'] = df1['weekdays'].replace(1,'Tue')
-df1['weekdays'] = df1['weekdays'].replace(2,'Wed')
-df1['weekdays'] = df1['weekdays'].replace(3,'Thu')
-df1['weekdays'] = df1['weekdays'].replace(4,'Fri')
-df1['weekdays'] = df1['weekdays'].replace(5,'Sat')
-df1['weekdays'] = df1['weekdays'].replace(6,'Sun')
+df['weekdays'] = df['weekdays'].replace(0,'Mon')
+df['weekdays'] = df['weekdays'].replace(1,'Tue')
+df['weekdays'] = df['weekdays'].replace(2,'Wed')
+df['weekdays'] = df['weekdays'].replace(3,'Thu')
+df['weekdays'] = df['weekdays'].replace(4,'Fri')
+df['weekdays'] = df['weekdays'].replace(5,'Sat')
+df['weekdays'] = df['weekdays'].replace(6,'Sun')
 
 #changing to category
-df1['weekdays'] = df1['weekdays'].astype('category')
+df['weekdays'] = df['weekdays'].astype('category')
 
 #reordering weekdays
-df1['weekdays'] = df1['weekdays'].cat.reorder_categories(['Mon', 
+df['weekdays'] = df['weekdays'].cat.reorder_categories(['Mon', 
    'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], ordered=True)
 
+
+# =============================================================================
+# Analysing by Time
+# =============================================================================
+
+df['Start Time'].unique()
+
+df['Date'] = df['Start Time'].dt.date
+
+df['year'] = pd.DatetimeIndex(df['Date']).year
+df['month'] = pd.DatetimeIndex(df['Date']).month
+
+df.info()
+
+
+
+# replacing 0-6 with Mon - Sun
+df['month'] = df['month'].replace(0,'Jan')
+df['month'] = df['month'].replace(1,'Feb')
+df['month'] = df['month'].replace(2,'Mar')
+df['month'] = df['month'].replace(3,'Apr')
+df['month'] = df['month'].replace(4,'May')
+df['month'] = df['month'].replace(5,'June')
+df['month'] = df['month'].replace(6,'July')
+df['month'] = df['month'].replace(7,'Aug')
+df['month'] = df['month'].replace(8,'Sep')
+df['month'] = df['month'].replace(9,'Oct')
+df['month'] = df['month'].replace(10,'Nov')
+df['month'] = df['month'].replace(11,'Dec')
+
+
+#changing to category
+df['month'] = df['month'].astype('category')
+
+#reordering weekdays
+df['month'] = df['month'].cat.reorder_categories(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], ordered=True)
+
+# =============================================================================
+# Creating a Variable examining Pre-Covid and Covid
+# =============================================================================
+#Pre-Covid is before 12th March 2020 (That is the day that I was last in work)
+df.loc[df['Date'] < datetime.date(2020,3,12), 'normality'] = 'Pre-Covid'
+df.loc[df['Date'] > datetime.date(2020,3,12), 'normality'] = 'Covid'
+
+df['normality'] = df['normality'].astype('category')
 
 # =============================================================================
 # Creating Hour
 # =============================================================================
 
-df1['hour'] = df1['Start Time'].dt.hour
+df['hour'] = df['Start Time'].dt.hour
 
-df1['hour'] = pd.Categorical(df1['hour'], 
+df['hour'] = pd.Categorical(df['hour'], 
        categories = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
        ordered = True)
 
+# =============================================================================
+# Removing Seasons and Episodes from text in Titles
+# =============================================================================
 
+df['Title_name'] = (np.where(df['Title'].str.contains(': '),
+                  df['Title'].str.split(':').str[0],
+                  df['Title']))
+
+
+# =============================================================================
+# Creating variable called Type: Tv Show or Movie
+# =============================================================================
+
+# trying to create the all the names with Season and create  a new variable called Type
+df.loc[df['Title'].str.contains(': '), 'Type'] = 'TV Show'
+
+# Trying to create  Movie in Type
+df.loc[df['Type'].isnull(), 'Type'] = 'Movie'
 
 # =============================================================================
 # Creating separate datasets for Me
 # =============================================================================
 
-Karina = df1[df1['Profile Name'] == 'Karina']
+Karina = df[df['Profile Name'] == 'Karina']
 
 # examining my hours spent on Netflix
 Karina['Duration'].sum()
 
 #'90 days 01:52:53'
+
+#drop redundant Profile Name
+Karina = Karina.drop(['Profile Name'], axis = 1)
 
 # =============================================================================
 # Checking Weekdays
@@ -182,7 +247,7 @@ plt.show()
 # =============================================================================
 
 # create the table
-views_per_hour = df1.groupby(
+views_per_hour = df.groupby(
         ['hour']
         )['Duration'].count().reset_index()
 
@@ -198,18 +263,9 @@ plt.xlabel('Weekdays', fontsize = 12)
 plt.show()
 
 
-
 # =============================================================================
-# Creating variable called Type: Tv Show or Movie
+#  Karina by Type
 # =============================================================================
-
-# trying to create the all the names with Season and create  a new variable called Type
-Karina.loc[Karina['Title'].str.contains(': '), 'Type'] = 'TV Show'
-
-# Trying to create  Movie in Type
-Karina.loc[Karina['Type'].isnull(), 'Type'] = 'Movie'
-
-
 # visualising duration and profile Name type
 views_by_Type = Karina.groupby(
         ['Type']
@@ -228,17 +284,6 @@ plt.xticks(rotation = 90)
 plt.title('TV Show or Movie?', fontsize = 14)
 plt.ylabel('Duration', fontsize = 12)
 plt.show()
-
-
-
-# =============================================================================
-# Removing Seasons and Episodes from text in Titles
-# =============================================================================
-
-Karina['Title_name'] = (np.where(Karina['Title'].str.contains(': '),
-                  Karina['Title'].str.split(':').str[0],
-                  Karina['Title']))
-
 
 # =============================================================================
 # Examining dataset by Karina
@@ -350,17 +395,55 @@ TV_Show_graph.set_ylabel('Duration')
 TV_Show_graph.set_xlabel('TV Shows')
 TV_Show_graph.set_xticklabels(TV_Show_graph.get_xticklabels(), rotation = 90)
 
-
-
-
 # =============================================================================
-# 
+# Split by Covid
 # =============================================================================
 
+Pre_Covid = Karina[Karina['normality'] == 'Pre-Covid']
+Covid = Karina[Karina['normality'] == 'Covid']
 
 
+Pre_TV_Show_view = Pre_Covid.groupby(['Title_name']
+        )['Duration'].sum().sort_values(ascending = False)
 
 
+Covid_TV_Show_view = Covid.groupby(['Title_name']
+        )['Duration'].sum().sort_values(ascending = False)
+
+
+top_TV_Show_mid_COVID = Covid_TV_Show_view.head(15)
+
+# checking viewing after 12th Mardch 2020
+print(top_TV_Show_mid_COVID)
+#How I Met Your Mother                 2 days 23:28:32
+#How to Get Away With Murder           2 days 04:09:05
+#Once Upon a Time                      1 days 09:30:18
+#Riverdale                             1 days 08:01:11
+#Brooklyn Nine-Nine                    1 days 03:16:51
+#Good Girls                            0 days 23:52:32
+#Gossip Girl                           0 days 22:41:50
+#The Fall                              0 days 21:42:41
+#The Innocence Files                   0 days 13:53:50
+#Inside the World’s Toughest Prisons   0 days 11:12:47
+#You                                   0 days 10:43:28
+#Unsolved Mysteries                    0 days 10:00:02
+#Conversations with a Killer           0 days 09:11:02
+#Emily in Paris                        0 days 06:55:21
+#Money Heist                           0 days 06:18:53
+
+#Creating a dataframe for TV Shows
+top_TV_Show_mid_COVID_df = pd.DataFrame(top_TV_Show_mid_COVID.head(15))
+top_TV_Show_mid_COVID_df.reset_index(inplace = True)
+top_TV_Show_mid_COVID_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, inplace = True)
+top_TV_Show_mid_COVID_df
+
+#Creating a graph for TV Shows
+top_TV_Show_mid_COVID_graph=sns.barplot(x = "Title_name", y = "Duration", data = top_TV_Show_mid_COVID_df,
+                 palette = 'Blues_d')
+top_TV_Show_mid_COVID_graph.set_title('Top 15 TV Shows Mid-Covid')
+top_TV_Show_mid_COVID_graph.set_ylabel('Duration')
+top_TV_Show_mid_COVID_graph.set_xlabel('TV Shows')
+top_TV_Show_mid_COVID_graph.set_xticklabels(top_TV_Show_mid_COVID_graph.get_xticklabels(), rotation = 90)
 
 
 
@@ -372,11 +455,6 @@ FUTURE RESEARCH IDEAS
 
 Draw line graph with time + duration with 3 different lines for each hour
 
-create  a snapshot of when the hours are all using Netflix
-
-Analyse Titles
-
-Run an algorythm to analyse who will watch which TV SHows and Movies with what titles?
 '''
 
 
