@@ -10,21 +10,22 @@ Majority of the time, I would turn on Netflix before bed and just fall asleep.
 Unfortunately, Netflix does not ask "Click to Continue" and on numerous occassions I woke up at 3am to find that Netflix kept rolling.
 
 In March of 2020, I found myself unemployed due to COVID, so I had a lot of free time.
-Sometimes, when I watch movies, I code. I put on in the background, more like white noise, which does not require much thinking or attention from actual work. 
+Sometimes, when I watch movies, I code. I put something on in the background, more like white noise, which does not require much thinking or attention from actual work. 
 This dataset was analysed during Season 2 of iZombie!
 
 # Learning Outcomes
 I have started and NOT FINISHED so many datasets. I made it my mission to finish one project and write my analysis in the README.md file!
-It is a goofy little project but there are a several reasons why I did this project:
-- familiarity with pandas
-- use to_timedate and to_timedelta
-- converting datetime to date
-- splitting month and year from date
-- creatively filtering 'Title' to eliminate Seasons and Episodes and to create new variable ['Type']
-- splitting 'Title' to eliminate Seasons and Episodes and to create new variable ['Title'] to have just 'Gossip Girl' instead of 'Gossip Girl: Season 3: Episode 7'
-- filtering and splitting data (['Profile_Name',  'Type', 'Normality']
-- creating pivot tables with timedelta
-- more practise creating graphs in pandas and seaborn
+It is a goofy little project but there are a several reasons why I did this project.
+I aimed and succeeed to 
+- built my familiarity with pandas
+- used to_timedate and to_timedelta
+- converted datetime to date
+- splitted month and year from date
+- creatively filtered 'Title' to eliminate Seasons and Episodes and to create new variable ['Type']
+- splitted 'Title' to eliminate Seasons and Episodes and to create new variable ['Title'] to have just 'Gossip Girl' instead of 'Gossip Girl: Season 3: Episode 7'
+- filtered and splitted data (['Profile_Name',  'Type', 'Normality']
+- created pivot tables with timedelta
+- practised creating graphs in pandas and seaborn
 
 ### Variables
 ['Profile Name', 'Start Time', 'Duration', 'Attributes', 'Title',
