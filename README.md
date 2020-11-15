@@ -32,8 +32,9 @@ I aimed and succeeed to:
 'Supplemental Video Type', 'Device Type', 'Bookmark', 'Latest Bookmark',
 'Country']
 
-The following Variables were removed from the data ['Device Type', 'Bookmark', 'Latest Bookmark', 'Country']
-The data contains Hooks and Trailers, which were elimiated from the data as wel. Rows with HOOK and TRAILER in ['Supplemental Video Type'] were deleted. Only 'NaN' was included in the dataset.
+The following Variables were removed from the data ['Device Type', 'Bookmark', 'Latest Bookmark', 'Country'].
+The data contains Hooks and Trailers, which were elimiated from the data as wel. Rows with HOOK and TRAILER in ['Supplemental Video Type'] were deleted. 
+Only 'NaN' was included in the dataset.
 
 ['Start Time'] was changed to date and time using *to_datetime*.
 ['Duration']  was changed to duration using *to_timedelta*.
@@ -43,8 +44,7 @@ Another variable ['Type'] was created which had 2 levels: TV Show and Movie.
 ### Users
 My family watches Netflix as well, but I think I should only write about myself in this report. 
 
-Upon initial examination, here is the table of Duration.
-- Karina     90 days 01:52:53
+Upon initial examination, I spent **90 days 01:52:53** watching Netflix!!
 
 ### Examining Weekdays
 **What day of the week do I watch the most Netflix?**
