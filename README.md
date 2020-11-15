@@ -21,7 +21,7 @@ It is a goofy little project but there are a several reasons why I did this proj
 - converting datetime to date
 - splitting month and year from date
 - creatively filtering 'Title' to eliminate Seasons and Episodes and to create new variable ['Type']
-- plitting 'Title' to eliminate Seasons and Episodes and to create new variable ['Title'] to have just 'Gossip Girl' instead of 'Gossip Girl: Season 3: Episode 7'
+- splitting 'Title' to eliminate Seasons and Episodes and to create new variable ['Title'] to have just 'Gossip Girl' instead of 'Gossip Girl: Season 3: Episode 7'
 - filtering and splitting data (['Profile_Name',  'Type', 'Normality']
 - creating pivot tables with timedelta
 - more practise creating graphs in pandas and seaborn
