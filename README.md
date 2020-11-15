@@ -4,6 +4,15 @@ After downloading Netflix data from my account, I decided to analyse it with pan
 Data was based on Family Netflix Account
 Inspired by [python tutorial analyze personal netflix data](https://www.dataquest.io/blog/python-tutorial-analyze-personal-netflix-data/).
 
+##Disclaimer:
+In my defence of my nightly viewing habits: I use Netflix to watch as I fall asleep. I call it my cheap cure to insomnia.
+Majority of the time, I would turn on Netflix before bed and just fall asleep. 
+Unfortunately, Netflix does not ask "Click to Continue" and on numerous occassions I woke up at 3am to find that Netflix kept rolling.
+
+In March of 2012, I found myself unemployed due to COVID, so I had a lot of free time
+Sometimes, when I watch movies, I code. I put something in the background, more like white noise, which does not require much thinking or attention from actual work. 
+This dataset was analysed during Season 2 of iZombie!
+
 ### Variables
 ['Profile Name', 'Start Time', 'Duration', 'Attributes', 'Title',
 'Supplemental Video Type', 'Device Type', 'Bookmark', 'Latest Bookmark',
@@ -54,12 +63,10 @@ Due to enormous amount of data when viewing Top 15 so the data was split by User
 
 ![Duration_Movie](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_Movie.png)
 
-In my defence of my Top 15: Sometimes, when I watch movies, I code. I put something in the background, more like white noise, which does not require much thinking or attention from actual work. 
-
 # Examining By Pre-COVID and COVID
 Covid has changed my life dramatically. As I was employed in Private Education, I found myself unemployed and, apparently, a lot of free time.  
 So I decided to find out how much of that viewing was made during Covid and Pre-Covid. 
-Considering I am unemployed (but in a part-time course in DBS, which takes up majority of my time now), I still have a lot of viewing time while I code.
+Considering I am unemployed (but in a part-time course in DBS, which takes up majority of my time now, I still have a lot of viewing time while I code.
 
 
 ### New Variables
@@ -89,7 +96,7 @@ That is accurate, I had a 'HIMYM' marathon...
 
 ![Covid_Duration_Movie](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_Movie.png)
 
-My movie choices are rather shameful! However, I think I was trying to beat someone in this Netflix tweet [Netflix](https://twitter.com/netflix/status/940051734650503168?ref_src=twsrc%5Etfw).
+My movie choices are rather shameful! However, I think I was trying to beat someone in this [Netflix tweet](https://twitter.com/netflix/status/940051734650503168?ref_src=twsrc%5Etfw).
 
 # Learning Outcomes
 There is a several reasons why I did this project:
