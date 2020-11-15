@@ -530,16 +530,17 @@ print(Covid_top_movie)
 #Creating a dataframe for Movie
 Covid_top_move_df = pd.DataFrame(Covid_top_movie)
 Covid_top_move_df.reset_index(inplace = True)
-Covid_top_move_df.rename(columns={'index':'Title', 'Duration':'Duration'}, inplace = True)
+Covid_top_move_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, inplace = True)
 Covid_top_move_df
 
 #Creating a graph for Movie
-Covid_movie_graph = sns.barplot(x = "Title_name", y = "Duration", data = Covid_top_movie,
-                 palette='Blues_d')
-Covid_movie_graph.set_title('Top 15 Movies')
-Covid_movie_graph.set_ylabel('Duration')
-Covid_movie_graph.set_xlabel('Movies')
-Covid_movie_graph.set_xticklabels(Covid_movie_graph.get_xticklabels(), rotation=90)
+top_movie_mid_COVID_graph=sns.barplot(x = "Title_name", y = "Duration", data = Covid_top_move_df,
+                 palette = 'Blues_d')
+top_movie_mid_COVID_graph.set_title('Top 15 TV Shows Mid-Covid')
+top_movie_mid_COVID_graph.set_ylabel('Duration')
+top_movie_mid_COVID_graph.set_xlabel('TV Shows')
+top_movie_mid_COVID_graph.set_xticklabels(Covid_top_move_df.get_xticklabels(), rotation = 90)
+
 
 
 
