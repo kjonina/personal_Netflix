@@ -252,11 +252,11 @@ print(Karina_Year)
 
 Karina_Year_df = pd.DataFrame(Karina_Year)
 Karina_Year_df.reset_index(inplace = True)
-Karina_Year_df.rename(columns={'index':'year', 'Duration':'Duration'}, inplace = True)
+Karina_Year_df.rename(columns = {'index':'year', 'Duration':'Duration'}, inplace = True)
 Karina_Year_df
 
 #Creating a graph for TV Shows
-Karina_Year_df_graph=sns.barplot(x = "year", y = "Duration", data = Karina_Year_df,
+Karina_Year_df_graph = sns.barplot(x = "year", y = "Duration", data = Karina_Year_df,
                  palette = 'Blues_d')
 Karina_Year_df_graph.set_title('Top 15 TV Shows Mid-Covid')
 Karina_Year_df_graph.set_ylabel('Duration')
@@ -276,11 +276,11 @@ print(Karina_Month)
 
 Karina_Month_df = pd.DataFrame(Karina_Month)
 Karina_Month_df.reset_index(inplace = True)
-Karina_Month_df.rename(columns={'index':'month', 'Duration':'Duration'}, inplace = True)
+Karina_Month_df.rename(columns = {'index':'month', 'Duration':'Duration'}, inplace = True)
 Karina_Month_df
 
 #Creating a graph for TV Shows
-Karina_Month_df_graph=sns.barplot(x = "month", y = "Duration", data = Karina_Month_df,
+Karina_Month_df_graph = sns.barplot(x = "month", y = "Duration", data = Karina_Month_df,
                  palette = 'Blues_d')
 Karina_Month_df_graph.set_title('Top 15 TV Shows Mid-Covid')
 Karina_Month_df_graph.set_ylabel('Duration')
@@ -302,11 +302,11 @@ print(Karina_Month_Year)
 
 Karina_Month_Year_df = pd.DataFrame(Karina_Month_Year)
 Karina_Month_Year_df.reset_index(inplace = True)
-Karina_Month_Year_df.rename(columns={'index':'month_year', 'Duration':'Duration'}, inplace = True)
+Karina_Month_Year_df.rename(columns = {'index':'month_year', 'Duration':'Duration'}, inplace = True)
 Karina_Month_Year_df
 
-#Creating a graph for TV Shows
-Karina_Month_Year_df_graph=sns.barplot(x = "month_year", y = "Duration", data = Karina_Month_Year_df,
+#Creating a graph for Month and Year
+Karina_Month_Year_df_graph = sns.barplot(x = "month_year", y = "Duration", data = Karina_Month_Year_df,
                  palette = 'Greens_d')
 Karina_Month_Year_df_graph.set_title('Top 15 TV Shows Mid-Covid')
 Karina_Month_Year_df_graph.set_ylabel('Duration')
@@ -330,12 +330,21 @@ print(views_by_Type)
 # 1  TV Show 82 days 01:40:23
 
 
-plt.figure(figsize = (12, 8))
-views_by_Type.plot(kind = 'bar')
-plt.xticks(rotation = 90)
-plt.title('TV Show or Movie?', fontsize = 14)
-plt.ylabel('Duration', fontsize = 12)
-plt.show()
+
+#Creating a dataframe for TV Shows
+views_by_Type_df = pd.DataFrame(views_by_Type)
+views_by_Type_df.reset_index(inplace = True)
+views_by_Type_df.rename(columns = {'index':'Type', 'Duration':'Duration'}, inplace = True)
+views_by_Type_df
+
+#Creating a 
+#views_by_Type_df_graph = sns.barplot(x = "Type", y = "Duration", data = views_by_Type_df,
+#                 palette = 'Greens_d')
+#views_by_Type_df_graph.set_title('Top 15 TV Shows Mid-Covid')
+#views_by_Type_df_graph.set_ylabel('Duration')
+#views_by_Type_df_graph.set_xlabel('Month and Year')
+#views_by_Type_df_graph.set_xticklabels(views_by_Type_df_graph.get_xticklabels(), rotation = 90)
+#
 
 
 # =============================================================================
@@ -378,18 +387,16 @@ print(top_movie)
 #Creating a dataframe for Movie
 top_move_df = pd.DataFrame(top_movie.head(15))
 top_move_df.reset_index(inplace = True)
-top_move_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, inplace = True)
+top_move_df.rename(columns = {'index':'Title_name', 'Duration':'Duration'}, inplace = True)
 
 
 #Creating a graph for Movie
 movie_graph = sns.barplot(x = "Title_name", y = "Duration", data = top_move_df,
-                 palette='Blues_d')
+                 palette = 'viridis')
 movie_graph.set_title('Top 15 Movies')
 movie_graph.set_ylabel('Duration')
 movie_graph.set_xlabel('Movies')
-movie_graph.set_xticklabels(movie_graph.get_xticklabels(), rotation=90)
-
-
+movie_graph.set_xticklabels(movie_graph.get_xticklabels(), rotation = 90)
 
 # =============================================================================
 # Examining TV Show (for Karina)
@@ -408,12 +415,12 @@ print(top_TV_Show)
 #Creating a dataframe for TV Shows
 top_TV_Show_df = pd.DataFrame(top_TV_Show)
 top_TV_Show_df.reset_index(inplace = True)
-top_TV_Show_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, inplace = True)
+top_TV_Show_df.rename(columns = {'index':'Title_name', 'Duration':'Duration'}, inplace = True)
 top_TV_Show_df
 
 #Creating a graph for TV Shows
-TV_Show_graph=sns.barplot(x = "Title_name", y = "Duration", data = top_TV_Show_df,
-                 palette = 'Blues_d')
+TV_Show_graph = sns.barplot(x = "Title_name", y = "Duration", data = top_TV_Show_df,
+                 palette = 'viridis')
 TV_Show_graph.set_title('Top 15 TV Shows')
 TV_Show_graph.set_ylabel('Duration')
 TV_Show_graph.set_xlabel('TV Shows')
@@ -432,7 +439,7 @@ comparing_habits = pd.DataFrame({'Normality': Karina['normality'],
                    'Duration': Karina['Duration']})
     
 comparing_habits_WD_pivot = pd.pivot_table(
-        comparing_habits, values='Duration', index=['Weekdays'], columns=['Normality'], aggfunc=np.sum)
+        comparing_habits, values='Duration', index = ['Weekdays'], columns = ['Normality'], aggfunc = np.sum)
 
 # Compare the data
 print(comparing_habits_WD_pivot)
@@ -457,7 +464,7 @@ plt.show()
 
 
 comparing_habits_HRS_pivot = pd.pivot_table(
-        comparing_habits, values='Duration', index=['Hour'], columns=['Normality'], aggfunc=np.sum)
+        comparing_habits, values = 'Duration', index = ['Hour'], columns = ['Normality'], aggfunc = np.sum)
 
 # Compare the data
 print(comparing_habits_HRS_pivot)
@@ -539,12 +546,12 @@ print(top_TV_Show_mid_COVID)
 #Creating a dataframe for TV Shows
 top_TV_Show_mid_COVID_df = pd.DataFrame(top_TV_Show_mid_COVID.head(15))
 top_TV_Show_mid_COVID_df.reset_index(inplace = True)
-top_TV_Show_mid_COVID_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, inplace = True)
+top_TV_Show_mid_COVID_df.rename(columns = {'index':'Title_name', 'Duration':'Duration'}, inplace = True)
 top_TV_Show_mid_COVID_df
 
 #Creating a graph for TV Shows
-top_TV_Show_mid_COVID_graph=sns.barplot(x = "Title_name", y = "Duration", data = top_TV_Show_mid_COVID_df,
-                 palette = 'Blues_d')
+top_TV_Show_mid_COVID_graph = sns.barplot(x = "Title_name", y = "Duration", data = top_TV_Show_mid_COVID_df,
+                 palette = 'Reds_d')
 top_TV_Show_mid_COVID_graph.set_title('Top 15 TV Shows Mid-Covid')
 top_TV_Show_mid_COVID_graph.set_ylabel('Duration')
 top_TV_Show_mid_COVID_graph.set_xlabel('TV Shows')
@@ -583,12 +590,12 @@ print(Covid_top_movie)
 #Creating a dataframe for Movie
 Covid_top_move_df = pd.DataFrame(Covid_top_movie)
 Covid_top_move_df.reset_index(inplace = True)
-Covid_top_move_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, inplace = True)
+Covid_top_move_df.rename(columns = {'index':'Title_name', 'Duration':'Duration'}, inplace = True)
 Covid_top_move_df
 
 #Creating a graph for Movie
-Covid_top_move_mid_COVID_graph=sns.barplot(x = "Title_name", y = "Duration", data = Covid_top_move_df,
-                 palette = 'Blues_d')
+Covid_top_move_mid_COVID_graph = sns.barplot(x = "Title_name", y = "Duration", data = Covid_top_move_df,
+                 palette = 'Reds_d')
 Covid_top_move_mid_COVID_graph.set_title('Top Movie Mid-Covid')
 Covid_top_move_mid_COVID_graph.set_ylabel('Duration')
 Covid_top_move_mid_COVID_graph.set_xlabel('Movie')
