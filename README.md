@@ -86,13 +86,13 @@ Weekdays have not seen a significant changed.
 Hour has a significant different habits. It is clear that there is a lot more viewing during the day.
 
 
-## Examining Top 15 TV Shows in Covid
+### Examining Top 15 TV Shows in Covid
 
 ![Covid_Duration_TV_SHow](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_TV_SHow.png)
 
 That is accurate, I had a 'HIMYM' marathon...
 
-## Examining Top 15 Movie in Covid
+### Examining Top 15 Movie in Covid
 
 ![Covid_Duration_Movie](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_Movie.png)
 
