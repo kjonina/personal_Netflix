@@ -13,6 +13,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import datetime
+import calendar
 from io import StringIO # This is used for fast string concatination
 import nltk # Use nltk for valid words
 import collections as co # Need to make hash 'dictionaries' from nltk for fast processing
@@ -66,8 +67,6 @@ print(df.shape)
 # =============================================================================
 df = df.drop(['Attributes', 'Bookmark', 'Latest Bookmark', 'Country', 'Device Type'], axis = 1)
 
-print(df.head())
-
 #creating a new variable called SVT where data is null or not null
 df['SVT'] = df['Supplemental Video Type'].isnull()
 
@@ -81,8 +80,6 @@ df = df.drop(['SVT', 'Supplemental Video Type'], axis = 1)
 # =============================================================================
 # Correcting Variables Types
 # =============================================================================
-#checking data types
-df.dtypes
 
 #changing Profile Name to a categorical variable
 df['Profile Name'] = df['Profile Name'].astype('category')
@@ -90,8 +87,30 @@ df['Profile Name'] = df['Profile Name'].astype('category')
 # changing Start Time to Date Time in UTC Time Zone
 df['Start Time'] = pd.to_datetime(df['Start Time'], utc = True)
 
+# just getting the date
+df['Date'] = df['Start Time'].dt.date
+
+#Get the year
+df['year'] = pd.DatetimeIndex(df['Date']).year
+
+# get month name 
+df['month'] = df['month'].apply(lambda x: calendar.month_abbr[x])
+
+#creating variable month and year
+df['month_year'] = pd.to_datetime(df['Date']).dt.to_period('M')
+
 #changing Duration to time account
 df['Duration'] = pd.to_timedelta(df['Duration'])
+
+
+# =============================================================================
+# Creating a Variable examining Pre-Covid and Covid
+# =============================================================================
+#Pre-Covid is before 12th March 2020 (That is the day that I was last in work)
+df.loc[df['Date'] < datetime.date(2020,3,12), 'normality'] = 'Pre-Covid'
+df.loc[df['Date'] > datetime.date(2020,3,12), 'normality'] = 'Covid'
+
+df['normality'] = df['normality'].astype('category')
 
 
 # =============================================================================
@@ -124,51 +143,6 @@ df['weekdays'] = df['weekdays'].cat.reorder_categories(['Mon',
 
 
 # =============================================================================
-# Analysing by Time
-# =============================================================================
-
-df['Start Time'].unique()
-
-df['Date'] = df['Start Time'].dt.date
-
-df['year'] = pd.DatetimeIndex(df['Date']).year
-df['month'] = pd.DatetimeIndex(df['Date']).month
-
-df.info()
-
-
-
-## replacing 0-6 with Mon - Sun
-#df['month'] = df['month'].replace(0,'Jan')
-#df['month'] = df['month'].replace(1,'Feb')
-#df['month'] = df['month'].replace(2,'Mar')
-#df['month'] = df['month'].replace(3,'Apr')
-#df['month'] = df['month'].replace(4,'May')
-#df['month'] = df['month'].replace(5,'June')
-#df['month'] = df['month'].replace(6,'July')
-#df['month'] = df['month'].replace(7,'Aug')
-#df['month'] = df['month'].replace(8,'Sep')
-#df['month'] = df['month'].replace(9,'Oct')
-#df['month'] = df['month'].replace(10,'Nov')
-#df['month'] = df['month'].replace(11,'Dec')
-#
-#
-##changing to category
-#df['month'] = df['month'].astype('category')
-#
-##reordering weekdays
-#df['month'] = df['month'].cat.reorder_categories(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], ordered=True)
-
-# =============================================================================
-# Creating a Variable examining Pre-Covid and Covid
-# =============================================================================
-#Pre-Covid is before 12th March 2020 (That is the day that I was last in work)
-df.loc[df['Date'] < datetime.date(2020,3,12), 'normality'] = 'Pre-Covid'
-df.loc[df['Date'] > datetime.date(2020,3,12), 'normality'] = 'Covid'
-
-df['normality'] = df['normality'].astype('category')
-
-# =============================================================================
 # Creating Hour
 # =============================================================================
 
@@ -198,7 +172,7 @@ df.loc[df['Title'].str.contains(': '), 'Type'] = 'TV Show'
 df.loc[df['Type'].isnull(), 'Type'] = 'Movie'
 
 # =============================================================================
-# Creating separate datasets for Me
+# Creating separate datasets (for Karina)
 # =============================================================================
 
 Karina = df[df['Profile Name'] == 'Karina']
@@ -212,7 +186,7 @@ Karina['Duration'].sum()
 Karina = Karina.drop(['Profile Name'], axis = 1)
 
 # =============================================================================
-# Checking Weekdays
+# Analysing Weekdays (for Karina)
 # =============================================================================
 # create the table
 Karina['weekdays'].value_counts()
@@ -243,7 +217,7 @@ plt.show()
 
 
 # =============================================================================
-# Checking the hour of the day
+# Analysing the hour of the day (for Karina)
 # =============================================================================
 
 # create the table
@@ -262,9 +236,87 @@ plt.ylabel('Duration', fontsize = 12)
 plt.xlabel('Weekdays', fontsize = 12)
 plt.show()
 
+# =============================================================================
+# Analyse Date -> Year
+# =============================================================================
+# creating a year
+Karina_Year = Karina.groupby(['year']
+        )['Duration'].sum()
+
+#Creating the table
+print(Karina_Year)
+#2018   37 days 07:59:17
+#2019   28 days 13:46:35
+#2020   24 days 04:07:01
+
+
+Karina_Year_df = pd.DataFrame(Karina_Year)
+Karina_Year_df.reset_index(inplace = True)
+Karina_Year_df.rename(columns={'index':'year', 'Duration':'Duration'}, inplace = True)
+Karina_Year_df
+
+#Creating a graph for TV Shows
+Karina_Year_df_graph=sns.barplot(x = "year", y = "Duration", data = Karina_Year_df,
+                 palette = 'Blues_d')
+Karina_Year_df_graph.set_title('Top 15 TV Shows Mid-Covid')
+Karina_Year_df_graph.set_ylabel('Duration')
+Karina_Year_df_graph.set_xlabel('TV Shows')
+Karina_Year_df_graph.set_xticklabels(Karina_Year_df_graph.get_xticklabels(), rotation = 90)
 
 # =============================================================================
-#  Karina by Type
+# Analyse Date -> Month
+# =============================================================================
+
+# creating a month
+Karina_Month = Karina.groupby(['month']
+        )['Duration'].sum()
+
+#printing a  table
+print(Karina_Month)
+
+Karina_Month_df = pd.DataFrame(Karina_Month)
+Karina_Month_df.reset_index(inplace = True)
+Karina_Month_df.rename(columns={'index':'month', 'Duration':'Duration'}, inplace = True)
+Karina_Month_df
+
+#Creating a graph for TV Shows
+Karina_Month_df_graph=sns.barplot(x = "month", y = "Duration", data = Karina_Month_df,
+                 palette = 'Blues_d')
+Karina_Month_df_graph.set_title('Top 15 TV Shows Mid-Covid')
+Karina_Month_df_graph.set_ylabel('Duration')
+Karina_Month_df_graph.set_xlabel('TV Shows')
+Karina_Month_df_graph.set_xticklabels(Karina_Month_df_graph.get_xticklabels(), rotation = 90)
+
+
+
+# =============================================================================
+# Analyse Date -> Month and Year
+# =============================================================================
+# creating a month and year
+Karina_Month_Year = Karina.groupby(['month_year']
+        )['Duration'].sum()
+
+#printing a  table with months and years
+print(Karina_Month_Year)
+
+
+Karina_Month_Year_df = pd.DataFrame(Karina_Month_Year)
+Karina_Month_Year_df.reset_index(inplace = True)
+Karina_Month_Year_df.rename(columns={'index':'month_year', 'Duration':'Duration'}, inplace = True)
+Karina_Month_Year_df
+
+#Creating a graph for TV Shows
+Karina_Month_Year_df_graph=sns.barplot(x = "month_year", y = "Duration", data = Karina_Month_Year_df,
+                 palette = 'Greens_d')
+Karina_Month_Year_df_graph.set_title('Top 15 TV Shows Mid-Covid')
+Karina_Month_Year_df_graph.set_ylabel('Duration')
+Karina_Month_Year_df_graph.set_xlabel('Month and Year')
+Karina_Month_Year_df_graph.set_xticklabels(Karina_Month_Year_df_graph.get_xticklabels(), rotation = 90)
+
+
+
+# =============================================================================
+#  Analysing Type (for Karina)
 # =============================================================================
 # visualising duration and profile Name type
 views_by_Type = Karina.groupby(
@@ -287,7 +339,7 @@ plt.show()
 
 
 # =============================================================================
-# Examining dataset by Karina
+# Analsying dataset by Karina (for Karina)
 # =============================================================================
 #Creating the view of Karina's viewing habits
 views_by_Karina = Karina.groupby(['Title_name', 'Type']
@@ -303,7 +355,7 @@ views_by_Karina.tail(15)
 print(views_by_Karina.shape)
 
 # =============================================================================
-# Splitting the Type by Movie and Tv Show
+# Splitting the Type by Movie and Tv Show (for Karina)
 # =============================================================================
 #splitting Movie and TV Show to create each dataset
 Karina_Movie = Karina[Karina['Type'] == 'Movie']
@@ -311,7 +363,7 @@ Karina_TV_Show = Karina[Karina['Type'] == 'TV Show']
 
 
 # =============================================================================
-# Examining Movies 
+# Examining Movies (for Karina)
 # =============================================================================
 
 movie_views = Karina_Movie.groupby(['Title_name']
@@ -340,7 +392,7 @@ movie_graph.set_xticklabels(movie_graph.get_xticklabels(), rotation=90)
 
 
 # =============================================================================
-# Examining TV Show
+# Examining TV Show (for Karina)
 # =============================================================================
 
 TV_Show_view = Karina_TV_Show.groupby(['Title_name']
@@ -370,7 +422,7 @@ TV_Show_graph.set_xticklabels(TV_Show_graph.get_xticklabels(), rotation = 90)
 
 
 # =============================================================================
-# Analysing Pre-Covid and Covid Viewing Habits
+# Analysing Pre-Covid and Covid Viewing Habits (for Karina)
 # =============================================================================
 # Analyse data
 
@@ -447,7 +499,7 @@ plt.show()
 
 
 # =============================================================================
-# Split Covid by Movie and TV Show
+# Split Covid by Movie and TV Show (for Karina)
 # =============================================================================
 Pre_Covid_Movie = Karina_Movie[Karina_Movie['normality'] == 'Pre-Covid']
 Pre_Covid_TV_Show= Karina_TV_Show[Karina_TV_Show['normality'] == 'Pre-Covid']
@@ -457,7 +509,7 @@ Covid_Movie = Karina_Movie[Karina_Movie['normality'] == 'Covid']
 Covid_TV_Show = Karina_TV_Show[Karina_TV_Show['normality'] == 'Covid']
 
 # =============================================================================
-# COVID TV SHOW LIST
+# COVID TV SHOW LIST (for Karina)
 # =============================================================================
 # creating a table for Covid Viewing of TV Shows
 Covid_TV_Show_view = Covid_TV_Show.groupby(['Title_name']
@@ -500,7 +552,7 @@ top_TV_Show_mid_COVID_graph.set_xticklabels(top_TV_Show_mid_COVID_graph.get_xtic
 
 
 # =============================================================================
-# COVID MOVIES LIST
+# COVID MOVIES LIST (for Karina)
 # =============================================================================
 
 Covid_movie_views = Covid_Movie.groupby(['Title_name']
@@ -543,15 +595,5 @@ Covid_top_move_mid_COVID_graph.set_xlabel('Movie')
 Covid_top_move_mid_COVID_graph.set_xticklabels(Covid_top_move_mid_COVID_graph.get_xticklabels(), rotation = 90)
 
 
-
-
-
-
-'''
-FUTURE RESEARCH IDEAS
-
-Draw line graph with time + duration with 3 different lines for each hour
-
-'''
 
 

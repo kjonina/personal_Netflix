@@ -46,6 +46,15 @@ My family watches Netflix as well, but I think I should only write about myself 
 
 Upon initial examination, I spent **90 days 01:52:53** watching Netflix!!
 
+### Examining Viewing by Month and Year
+
+**When did I watch Netflix most?**
+
+![Month_Year](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Month_Year.png)
+
+Surprised with this graph. How did I watch so much Netflix in the first few months of getting the account?
+And how have I not bet it while in Covid?
+
 ### Examining Weekdays
 **What day of the week do I watch the most Netflix?**
 
