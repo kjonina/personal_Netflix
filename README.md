@@ -56,12 +56,12 @@ Due to enormous amount of data when viewing Top 15 so the data was split by User
 
 ### Examining Top 15 Movies 
 
-![Duration_TV_SHow](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_TV_SHow.png)
+![Duration_Movie](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_Movie.png)
 
 
 ### Examining Top 15 TV Shows
 
-![Duration_Movie](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_Movie.png)
+![Duration_TV_SHow](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_TV_SHow.png)
 
 # Examining By Pre-COVID and COVID
 Covid has changed my life dramatically. As I was employed in Private Education, I found myself unemployed and, apparently, a lot of free time.  
