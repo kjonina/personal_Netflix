@@ -456,8 +456,7 @@ print(comparing_habits_WD_pivot)
 #Sun 2 days 04:03:42 10 days 07:30:00
 
 
-plt.figure(figsize = (12, 8))
-comparing_habits_WD_pivot.plot(kind = 'bar')
+comparing_habits_WD_pivot.plot(kind = 'bar', figsize=(12,8))
 plt.xticks(rotation = 90)
 plt.title('Viewing Habits for Weekday', fontsize = 14)
 plt.ylabel('Duration', fontsize = 12)
@@ -498,8 +497,8 @@ print(comparing_habits_HRS_pivot)
 #23        1 days 06:37:51  8 days 22:36:56
 
 
-plt.figure(figsize = (12, 8))
-comparing_habits_HRS_pivot.plot(kind = 'bar')
+
+comparing_habits_HRS_pivot.plot(kind = 'bar', figsize=(12,8))
 plt.xticks(rotation = 90)
 plt.title('Viewing Habits for Hour of Day', fontsize = 14)
 plt.ylabel('Duration', fontsize = 12)
