@@ -131,6 +131,3 @@ That is accurate, I had a 'HIMYM' marathon...
 ![Covid_Duration_Movie](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_Movie.png)
 
 My movie choices are rather shameful! However, I think I was trying to beat someone in this [Netflix tweet](https://twitter.com/netflix/status/940051734650503168?ref_src=twsrc%5Etfw).
-
-### To Do:
-- Create a lineplot with Month+Year
