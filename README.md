@@ -1,7 +1,7 @@
 # personal_Netflix
 After downloading Netflix data from my account, I decided to analyse it with pandas and practise pivoting tables.
 
-Data was based on Family Netflix Account
+Data was based on Family Netflix Account.
 Inspired by [python tutorial analyze personal netflix data](https://www.dataquest.io/blog/python-tutorial-analyze-personal-netflix-data/).
 
 ## Disclaimer
@@ -16,7 +16,7 @@ This dataset was analysed during Season 2 of iZombie!
 # Learning Outcomes
 I have started and NOT FINISHED so many datasets. I made it my mission to finish one project and write my analysis in the README.md file!
 It is a goofy little project but there are a several reasons why I did this project.
-I aimed and succeeed to 
+I aimed and succeeed to:
 - build my familiarity with pandas
 - use to_timedate and to_timedelta
 - convert datetime to date
