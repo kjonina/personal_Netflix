@@ -17,15 +17,15 @@ This dataset was analysed during Season 2 of iZombie!
 I have started and NOT FINISHED so many datasets. I made it my mission to finish one project and write my analysis in the README.md file!
 It is a goofy little project but there are a several reasons why I did this project.
 I aimed and succeeed to 
-- built my familiarity with pandas
-- used to_timedate and to_timedelta
-- converted datetime to date
-- splitted month and year from date
-- creatively filtered 'Title' to eliminate Seasons and Episodes and to create new variable ['Type']
-- splitted 'Title' to eliminate Seasons and Episodes and to create new variable ['Title'] to have just 'Gossip Girl' instead of 'Gossip Girl: Season 3: Episode 7'
-- filtered and splitted data (['Profile_Name',  'Type', 'Normality']
-- created pivot tables with timedelta
-- practised creating graphs in pandas and seaborn
+- build my familiarity with pandas
+- use to_timedate and to_timedelta
+- convert datetime to date
+- split month and year from date
+- creatively filter 'Title' to eliminate Seasons and Episodes and to create new variable ['Type']
+- split 'Title' to eliminate Seasons and Episodes and to create new variable ['Title'] to have just 'Gossip Girl' instead of 'Gossip Girl: Season 3: Episode 7'
+- filter and split data (['Profile_Name',  'Type', 'Normality']
+- create pivot tables with timedelta
+- practise creating graphs in pandas and seaborn
 
 ### Variables
 ['Profile Name', 'Start Time', 'Duration', 'Attributes', 'Title',
