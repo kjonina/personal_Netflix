@@ -88,16 +88,16 @@ df['Profile Name'] = df['Profile Name'].astype('category')
 df['Start Time'] = pd.to_datetime(df['Start Time'], utc = True)
 
 # just getting the date
-df['Date'] = df['Start Time'].dt.date
+df['date'] = df['Start Time'].dt.date
 
 #Get the year
-df['year'] = pd.DatetimeIndex(df['Date']).year
+df['year'] = pd.DatetimeIndex(df['date']).year
 
 # get month name 
-df['month'] = df['month'].apply(lambda x: calendar.month_abbr[x])
+#df['month'] = df['date'].apply(lambda x: calendar.month_abbr[x])
 
 #creating variable month and year
-df['month_year'] = pd.to_datetime(df['Date']).dt.to_period('M')
+df['month_year'] = pd.to_datetime(df['date']).dt.to_period('M')
 
 #changing Duration to time account
 df['Duration'] = pd.to_timedelta(df['Duration'])
@@ -107,8 +107,8 @@ df['Duration'] = pd.to_timedelta(df['Duration'])
 # Creating a Variable examining Pre-Covid and Covid
 # =============================================================================
 #Pre-Covid is before 12th March 2020 (That is the day that I was last in work)
-df.loc[df['Date'] < datetime.date(2020,3,12), 'normality'] = 'Pre-Covid'
-df.loc[df['Date'] > datetime.date(2020,3,12), 'normality'] = 'Covid'
+df.loc[df['date'] < datetime.date(2020,3,12), 'normality'] = 'Pre-Covid'
+df.loc[df['date'] > datetime.date(2020,3,12), 'normality'] = 'Covid'
 
 df['normality'] = df['normality'].astype('category')
 
@@ -357,23 +357,6 @@ views_by_Type_df_graph.set_xlabel('Month and Year')
 views_by_Type_df_graph.set_xticklabels(views_by_Type_df_graph.get_xticklabels())
 
 
-
-# =============================================================================
-# Analsying dataset by Karina (for Karina)
-# =============================================================================
-#Creating the view of Karina's viewing habits
-views_by_Karina = Karina.groupby(['Title_name', 'Type']
-        )['Duration'].sum().sort_values(ascending = False)
-
-# Viewing Karina's Top 50 most watched (in Duration) Tv Shows and Movies
-views_by_Karina.head(20)
-
-# Viewing Karina's Bottom 15 watched (in Duration) Tv Shows and Movies
-views_by_Karina.tail(15)
-
-#examining the shape of the data
-print(views_by_Karina.shape)
-
 # =============================================================================
 # Splitting the Type by Movie and Tv Show (for Karina)
 # =============================================================================
@@ -605,7 +588,7 @@ Covid_top_move_df.rename(columns = {'index':'Title_name', 'Duration':'Duration'}
 Covid_top_move_df
 
 #Creating a graph for Movie
-Covid_top_move_mid_COVID_graph = sns.barplot(x = "Title_name", y = "Duration", data = Covid_top_move_df,
+Covid_top_move_mid_COVID_graph = sns.barplot(y = "Title_name", x = "Duration", data = Covid_top_move_df,
                  palette = 'Reds_d')
 Covid_top_move_mid_COVID_graph.set_title('Top Movie Mid-Covid')
 Covid_top_move_mid_COVID_graph.set_ylabel('Duration')
