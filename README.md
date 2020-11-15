@@ -78,6 +78,7 @@ Type Table
 Due to enormous amount of data when viewing Top 15 so the data was split by User and then Type.
 
 **What is my preference? Movies or TV Shows?**
+
 ![Duration_Type](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_Type.png)
 
 ### Examining Top 15 Movies 
@@ -91,6 +92,7 @@ I am surprised that there are not more movies on the list that I watched twice..
 ### Examining Top 15 TV Shows
 
 **What are my TOP 15 TV Shows?**
+
 ![Duration_TV_SHow](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_TV_SHow.png)
 
 # Examining By Pre-COVID and COVID
@@ -110,11 +112,13 @@ I also split the 'Karina' dataset by 'Covid_Movies' and 'Covid_TV_Show'.
 ### Comparing Habit Pre-Covid and Covid
 
 **Spot the difference: Pre-Covid and Covid**
+
 ![Compare_Weekdays](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Compare_Weekdays.png)
 
 Although, weekdays seem not to have a significant changed, Covid viewing habits are nearly a third of Pre-Covid data.
 
 **Spot the difference: Pre-Covid and Covid**
+
 ![Compare_Hours](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Compare_Hours.png)
 
 Hour has a significant difference in habits. It is clear that there is a lot more viewing during the day.
@@ -122,12 +126,15 @@ Hour has a significant difference in habits. It is clear that there is a lot mor
 ### Examining Top 15 TV Shows in Covid
 
 **What are my TOP 15 TV Shows in Covid?**
+
 ![Covid_Duration_TV_SHow](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_TV_SHow.png)
 
 That is accurate, I had a 'HIMYM' marathon...
 
 ### Examining Top 15 Movie in Covid
+
 **What are my TOP 15 Movie in Covid?**
+
 ![Covid_Duration_Movie](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_Movie.png)
 
 My movie choices are rather shameful! However, I think I was trying to beat someone in this [Netflix tweet](https://twitter.com/netflix/status/940051734650503168?ref_src=twsrc%5Etfw).
