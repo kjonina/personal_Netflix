@@ -13,6 +13,19 @@ In March of 2012, I found myself unemployed due to COVID, so I had a lot of free
 Sometimes, when I watch movies, I code. I put on in the background, more like white noise, which does not require much thinking or attention from actual work. 
 This dataset was analysed during Season 2 of iZombie!
 
+# Learning Outcomes
+I have started and NOT FINISHED so many datasets. I made it my mission to finish one project and write my analysis in the README.md file!
+It is a goofy little project but there are a several reasons why I did this project:
+- familiarity with pandas
+- use to_timedate and to_timedelta
+- converting datetime to date
+- splitting month and year from date
+- creatively filtering 'Title' to eliminate Seasons and Episodes and to create new variable ['Type']
+- plitting 'Title' to eliminate Seasons and Episodes and to create new variable ['Title'] to have just 'Gossip Girl' instead of 'Gossip Girl: Season 3: Episode 7'
+- filtering and splitting data (['Profile_Name',  'Type', 'Normality']
+- creating pivot tables with timedelta
+- more practise creating graphs in pandas and seaborn
+
 ### Variables
 ['Profile Name', 'Start Time', 'Duration', 'Attributes', 'Title',
 'Supplemental Video Type', 'Device Type', 'Bookmark', 'Latest Bookmark',
@@ -76,7 +89,6 @@ So I decided to find out how much of that viewing was made during Covid and Pre-
 Considering I am unemployed (but in a part-time course in DBS, which takes up majority of my time now, I still have a lot of viewing time while I code.
 **I had passed both my summer exams with an A**
 
-
 ### New Variables
 I created ['Normality'] which is stated by 12th of March 2020 
 (The day that Taoiseach Leo Varadkar closed all schools, colleges and universities (both private and public) in the Republic of Ireland).
@@ -96,7 +108,6 @@ Although, weekdays seem not to have a significant changed, Covid viewing habits 
 
 Hour has a significant difference in habits. It is clear that there is a lot more viewing during the day.
 
-
 ### Examining Top 15 TV Shows in Covid
 
 **What are my TOP 15 TV Shows in Covid?**
@@ -109,20 +120,6 @@ That is accurate, I had a 'HIMYM' marathon...
 ![Covid_Duration_Movie](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_Movie.png)
 
 My movie choices are rather shameful! However, I think I was trying to beat someone in this [Netflix tweet](https://twitter.com/netflix/status/940051734650503168?ref_src=twsrc%5Etfw).
-
-# Learning Outcomes
-There is a several reasons why I did this project:
-- familiarity with panda
-- use to_timedate and to_timedelta
-- converting datetime to date
-- splitting month and year from dataset
-- creatively filtering 'Title' to eliminate Seasons and Episodes and to create new variable ['Type']
-- creatively filtering and splitting data (['Profile_Name',  'Type', 'Normality']
-- creating pivot tables with timedelta
-- faster graphs
-
-I have started and NOT FINISHED so many datasets. I have made it my mission to finish one project. 
-Although, projects are never finished. 
 
 ### To Do:
 - Create a lineplot with Month+Year
