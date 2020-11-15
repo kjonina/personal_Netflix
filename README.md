@@ -78,12 +78,12 @@ I also split the 'Karina' dataset by 'Covid_Movies' and 'Covid_TV_Show'
 
 ![Compare_Weekdays](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Compare_Weekdays.png)
 
-Weekdays have not seen a significant changed.
+Although, weekdays seem not to have a significant changed, Covid viewing habits are nearly a third of Pre-Covid data..
 
 
 ![Compare_Hours](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Compare_Hours.png)
 
-Hour has a significant different habits. It is clear that there is a lot more viewing during the day.
+Hour has a significant difference in habits. It is clear that there is a lot more viewing during the day.
 
 
 ### Examining Top 15 TV Shows in Covid
