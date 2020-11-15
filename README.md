@@ -101,3 +101,9 @@ There is a several reasons why I did this project:
 - creatively filtering and splitting data (['Profile_Name',  'Type', 'Normality']
 - creating pivot tables with timedelta
 - faster graphs
+
+I have started and NOT FINISHED so many datasets. I have made it my mission to finish one project. 
+Although, projects are never finished. 
+
+### To Do:
+- Create a lineplot with Month+Year
