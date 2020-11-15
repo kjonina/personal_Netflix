@@ -83,8 +83,21 @@ Hour has a significant different habits. It is clear that there is a lot more vi
 
 ![Covid_Duration_TV_SHow](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_TV_SHow.png)
 
-That is accurate, I had a 'HIMYM' marathon
+That is accurate, I had a 'HIMYM' marathon...
 
 ## Examining Top 15 Movie in Covid
 
 ![Covid_Duration_Movie](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_Movie.png)
+
+My movie choices are rather shameful! However, I think I was trying to beat someone in this Netflix tweet [Netflix](https://twitter.com/netflix/status/940051734650503168?ref_src=twsrc%5Etfw).
+
+# Learning Outcomes
+There is a several reasons why I did this project:
+- familiarity with panda
+- use to_timedate and to_timedelta
+- converting datetime to date
+- splitting month and year from dataset
+- creatively filtering 'Title' to eliminate Seasons and Episodes and to create new variable ['Type']
+- creatively filtering and splitting data (['Profile_Name',  'Type', 'Normality']
+- creating pivot tables with timedelta
+- faster graphs
