@@ -4,7 +4,8 @@ After downloading Netflix data from my account, I decided to analyse it with pan
 Data was based on Family Netflix Account
 Inspired by [python tutorial analyze personal netflix data](https://www.dataquest.io/blog/python-tutorial-analyze-personal-netflix-data/).
 
-##Disclaimer:
+##Disclaimer
+
 In my defence of my nightly viewing habits: I use Netflix to watch as I fall asleep. I call it my cheap cure to insomnia.
 Majority of the time, I would turn on Netflix before bed and just fall asleep. 
 Unfortunately, Netflix does not ask "Click to Continue" and on numerous occassions I woke up at 3am to find that Netflix kept rolling.
