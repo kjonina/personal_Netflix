@@ -207,13 +207,18 @@ print(views_per_day)
 #6      Sun 12 days 11:33:42
 
 
-plt.figure(figsize = (12, 8))
-views_per_day.plot(kind = 'bar')
-plt.xticks(rotation = 90)
-plt.title('Time spent on Netflix for each Weekday', fontsize = 14)
-plt.ylabel('Duration', fontsize = 12)
-plt.xlabel('Weekdays', fontsize = 12)
-plt.show()
+views_per_day_df = pd.DataFrame(views_per_day)
+views_per_day_df.reset_index()
+views_per_day_df.rename(columns = {'index':'weekdays', 'Duration':'Duration'}, inplace = True)
+views_per_day_df
+
+#Creating a graph for Month and Year
+views_per_day_df_graph = sns.barplot(x = "weekdays", y = "Duration", data = views_per_day_df,
+                 palette = 'magma')
+views_per_day_df_graph.set_title('Time spent on Netflix for each Weekday')
+views_per_day_df_graph.set_ylabel('Duration')
+views_per_day_df_graph.set_xlabel('Month and Year')
+views_per_day_df_graph.set_xticklabels(views_per_day_df_graph.get_xticklabels())
 
 
 # =============================================================================
@@ -223,18 +228,24 @@ plt.show()
 # create the table
 views_per_hour = Karina.groupby(
         ['hour']
-        )['Duration'].count().reset_index()
+        )['Duration'].sum().reset_index()
 
 # generating the table
 print(views_per_hour)
 
-plt.figure(figsize = (12, 8))
-views_per_hour.plot(kind = 'bar')
-plt.xticks(rotation = 90)
-plt.title('The amount of hours spend on each hour', fontsize = 14)
-plt.ylabel('Duration', fontsize = 12)
-plt.xlabel('Weekdays', fontsize = 12)
-plt.show()
+views_per_hour_df = pd.DataFrame(views_per_hour)
+views_per_hour_df.reset_index()
+views_per_hour_df.rename(columns = {'index':'hour', 'Duration':'Duration'}, inplace = True)
+views_per_hour_df
+
+#Creating a graph for Month and Year
+views_per_hour_df_graph = sns.barplot(x = "hour", y = "Duration", data = views_per_hour_df,
+                 palette = 'magma')
+views_per_hour_df_graph.set_title('Top 15 TV Shows Mid-Covid')
+views_per_hour_df_graph.set_ylabel('Duration')
+views_per_hour_df_graph.set_xlabel('Month and Year')
+views_per_hour_df_graph.set_xticklabels(views_per_hour_df_graph.get_xticklabels(), rotation = 90)
+
 
 # =============================================================================
 # Analyse Date -> Year
@@ -258,9 +269,9 @@ Karina_Year_df
 #Creating a graph for TV Shows
 Karina_Year_df_graph = sns.barplot(x = "year", y = "Duration", data = Karina_Year_df,
                  palette = 'Blues_d')
-Karina_Year_df_graph.set_title('Top 15 TV Shows Mid-Covid')
+Karina_Year_df_graph.set_title('Which year did I watch the most Netflix?')
 Karina_Year_df_graph.set_ylabel('Duration')
-Karina_Year_df_graph.set_xlabel('TV Shows')
+Karina_Year_df_graph.set_xlabel('Year')
 Karina_Year_df_graph.set_xticklabels(Karina_Year_df_graph.get_xticklabels(), rotation = 90)
 
 # =============================================================================
@@ -282,9 +293,9 @@ Karina_Month_df
 #Creating a graph for TV Shows
 Karina_Month_df_graph = sns.barplot(x = "month", y = "Duration", data = Karina_Month_df,
                  palette = 'Blues_d')
-Karina_Month_df_graph.set_title('Top 15 TV Shows Mid-Covid')
+Karina_Month_df_graph.set_title('Which month did I watch the most Netflix?')
 Karina_Month_df_graph.set_ylabel('Duration')
-Karina_Month_df_graph.set_xlabel('TV Shows')
+Karina_Month_df_graph.set_xlabel('Month')
 Karina_Month_df_graph.set_xticklabels(Karina_Month_df_graph.get_xticklabels(), rotation = 90)
 
 
@@ -308,7 +319,7 @@ Karina_Month_Year_df
 #Creating a graph for Month and Year
 Karina_Month_Year_df_graph = sns.barplot(x = "month_year", y = "Duration", data = Karina_Month_Year_df,
                  palette = 'Greens_d')
-Karina_Month_Year_df_graph.set_title('Top 15 TV Shows Mid-Covid')
+Karina_Month_Year_df_graph.set_title('When did I watch most Netflix?')
 Karina_Month_Year_df_graph.set_ylabel('Duration')
 Karina_Month_Year_df_graph.set_xlabel('Month and Year')
 Karina_Month_Year_df_graph.set_xticklabels(Karina_Month_Year_df_graph.get_xticklabels(), rotation = 90)
@@ -333,18 +344,18 @@ print(views_by_Type)
 
 #Creating a dataframe for TV Shows
 views_by_Type_df = pd.DataFrame(views_by_Type)
-views_by_Type_df.reset_index(inplace = True)
+views_by_Type_df.reset_index()
 views_by_Type_df.rename(columns = {'index':'Type', 'Duration':'Duration'}, inplace = True)
 views_by_Type_df
 
 #Creating a 
-#views_by_Type_df_graph = sns.barplot(x = "Type", y = "Duration", data = views_by_Type_df,
-#                 palette = 'Greens_d')
-#views_by_Type_df_graph.set_title('Top 15 TV Shows Mid-Covid')
-#views_by_Type_df_graph.set_ylabel('Duration')
-#views_by_Type_df_graph.set_xlabel('Month and Year')
-#views_by_Type_df_graph.set_xticklabels(views_by_Type_df_graph.get_xticklabels(), rotation = 90)
-#
+views_by_Type_df_graph = sns.barplot(x = "Type", y = "Duration", data = views_by_Type_df,
+                 palette = 'mako')
+views_by_Type_df_graph.set_title('Top 15 TV Shows Mid-Covid')
+views_by_Type_df_graph.set_ylabel('Duration')
+views_by_Type_df_graph.set_xlabel('Month and Year')
+views_by_Type_df_graph.set_xticklabels(views_by_Type_df_graph.get_xticklabels())
+
 
 
 # =============================================================================
