@@ -84,6 +84,7 @@ Due to enormous amount of data when viewing Top 15 so the data was split by User
 ### Examining Top 15 Movies 
 
 **What are my TOP 15 Movies?**
+
 ![Duration_Movie](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_Movie.png)
 
 In my defence of my poor Movie choices: again, some of them, I feel asleep to, so hence, I tried to go back and find out what happens in the end. 
