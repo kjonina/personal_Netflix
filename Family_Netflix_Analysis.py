@@ -6,66 +6,6 @@ Github:             https://github.com/kjonina/
 Data Gathered:      based on Family Netflix Account
 Inspired by:        https://www.dataquest.io/blog/python-tutorial-analyze-personal-netflix-data/
 """
-
-import numpy as np
-import pandas as pd
-import matplotlib
-import matplotlib.pyplot as plt
-import seaborn as sns
-import datetime
-from io import StringIO # This is used for fast string concatination
-import nltk # Use nltk for valid words
-import collections as co # Need to make hash 'dictionaries' from nltk for fast processing
-import warnings # current version of seaborn generates a bunch of warnings that we'll ignore
-warnings.filterwarnings("ignore")
-from wordcloud import WordCloud
-from sklearn.feature_extraction.text import CountVectorizer #Bag of Words
-
-# read the CSV file
-df = pd.read_csv('ViewingActivity.csv')
-
-# Will ensure that all columns are displayed
-pd.set_option('display.max_columns', None) 
-
-# prints out the top 5 values for the datasef
-print(df.head())
-
-# checking the df shape
-print(df.shape)
-# (6234, 12)
-
-
-# prints out names of columns
-print(df.columns)
-
-# This tells us which variables are object, int64 and float 64. This would mean that 
-# some of the object variables might have to be changed into a categorical variables and int64 to float64 
-# depending on our analysis.
-print(df.info())
-
-
-# checking for missing data
-df.isnull().sum() 
-#Profileame N                  0
-#Start Time                    0
-#Duration                      0
-#Attributes                 6819
-#Title                         0
-#Supplemental Video Type    8224
-#Device Type                   0
-#Bookmark                      0
-#Latest Bookmark               0
-#Country                       0
-
-
-
-
-# checking the df shape
-print(df.shape)
-# (10106, 10)
-
-
-
 # =============================================================================
 # Droping Columns
 # =============================================================================
@@ -77,40 +17,147 @@ print(df.head())
 df['SVT'] = df['Supplemental Video Type'].isnull()
 
 # Trying to create  a dataset with only True as SVT
-df1 = df[df.SVT == True]
+df = df[df.SVT == True]
 
 #dropping unnecesary columns
-df1 = df1.drop(['SVT', 'Supplemental Video Type'], axis = 1)
+df = df.drop(['SVT', 'Supplemental Video Type'], axis = 1)
 
 
 # =============================================================================
 # Correcting Variables Types
 # =============================================================================
 #checking data types
-df1.dtypes
+df.dtypes
 
 #changing Profile Name to a categorical variable
-df1['Profile Name'] = df1['Profile Name'].astype('category')
+df['Profile Name'] = df['Profile Name'].astype('category')
 
 # changing Start Time to Date Time in UTC Time Zone
-df1['Start Time'] = pd.to_datetime(df1['Start Time'], utc = True)
+df['Start Time'] = pd.to_datetime(df['Start Time'], utc = True)
 
 #changing Duration to time account
-df1['Duration'] = pd.to_timedelta(df1['Duration'])
+df['Duration'] = pd.to_timedelta(df['Duration'])
 
-# examining individual Vits hours spent on Netflix
-df1['Duration'].groupby(df1['Profile Name']).sum()
+
+# =============================================================================
+# Creating Weekdays 
+# =============================================================================
+# creating a weekday variable
+df['weekdays'] =  df['Start Time'].dt.weekday
+
+
+# making 'weekdays' a categorical variable
+df['weekdays'] = pd.Categorical(df['weekdays'], 
+       categories = [0,1,2,3,4,5,6],
+       ordered = True)
+
+# replacing 0-6 with Mon - Sun
+df['weekdays'] = df['weekdays'].replace(0,'Mon')
+df['weekdays'] = df['weekdays'].replace(1,'Tue')
+df['weekdays'] = df['weekdays'].replace(2,'Wed')
+df['weekdays'] = df['weekdays'].replace(3,'Thu')
+df['weekdays'] = df['weekdays'].replace(4,'Fri')
+df['weekdays'] = df['weekdays'].replace(5,'Sat')
+df['weekdays'] = df['weekdays'].replace(6,'Sun')
+
+#changing to category
+df['weekdays'] = df['weekdays'].astype('category')
+
+#reordering weekdays
+df['weekdays'] = df['weekdays'].cat.reorder_categories(['Mon', 
+   'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], ordered=True)
+
+
+# =============================================================================
+# Analysing by Time
+# =============================================================================
+
+df['Start Time'].unique()
+
+df['Date'] = df['Start Time'].dt.date
+
+df['year'] = pd.DatetimeIndex(df['Date']).year
+df['month'] = pd.DatetimeIndex(df['Date']).month
+
+df.info()
+
+
+
+## replacing 0-6 with Mon - Sun
+#df['month'] = df['month'].replace(0,'Jan')
+#df['month'] = df['month'].replace(1,'Feb')
+#df['month'] = df['month'].replace(2,'Mar')
+#df['month'] = df['month'].replace(3,'Apr')
+#df['month'] = df['month'].replace(4,'May')
+#df['month'] = df['month'].replace(5,'June')
+#df['month'] = df['month'].replace(6,'July')
+#df['month'] = df['month'].replace(7,'Aug')
+#df['month'] = df['month'].replace(8,'Sep')
+#df['month'] = df['month'].replace(9,'Oct')
+#df['month'] = df['month'].replace(10,'Nov')
+#df['month'] = df['month'].replace(11,'Dec')
+#
+#
+##changing to category
+#df['month'] = df['month'].astype('category')
+#
+##reordering weekdays
+#df['month'] = df['month'].cat.reorder_categories(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], ordered=True)
+
+# =============================================================================
+# Creating a Variable examining Pre-Covid and Covid
+# =============================================================================
+#Pre-Covid is before 12th March 2020 (That is the day that I was last in work)
+df.loc[df['Date'] < datetime.date(2020,3,12), 'normality'] = 'Pre-Covid'
+df.loc[df['Date'] > datetime.date(2020,3,12), 'normality'] = 'Covid'
+
+df['normality'] = df['normality'].astype('category')
+
+# =============================================================================
+# Creating Hour
+# =============================================================================
+
+df['hour'] = df['Start Time'].dt.hour
+
+df['hour'] = pd.Categorical(df['hour'], 
+       categories = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+       ordered = True)
+
+# =============================================================================
+# Removing Seasons and Episodes from text in Titles
+# =============================================================================
+
+df['Title_name'] = (np.where(df['Title'].str.contains(': '),
+                  df['Title'].str.split(':').str[0],
+                  df['Title']))
+
+
+# =============================================================================
+# Creating variable called Type: Tv Show or Movie
+# =============================================================================
+
+# trying to create the all the names with Season and create  a new variable called Type
+df.loc[df['Title'].str.contains(': '), 'Type'] = 'TV Show'
+
+# Trying to create  Movie in Type
+df.loc[df['Type'].isnull(), 'Type'] = 'Movie'
+
+# =============================================================================
+# Creating separate datasets for Each User
+# =============================================================================
+
+Karina = df[df['Profile Name'] == 'Karina']
 
 #Profile Name
 #Karina     90 days 01:52:53
 #Karolina   21 days 17:37:15
-#Vit3         4 days 06:26:10
+#Vit         4 days 06:26:10
 
 
 ''' FIx graph '''
 # Examines the Profile Names 
 plt.figure(figsize = (12, 8))
-sns.countplot(x = 'Profile Name', data = df1, palette = 'viridis', order = df1['Profile Name'].value_counts().index)
+sns.countplot(x = 'Profile Name', data = df, palette = 'viridis', order = df['Profile Name'].value_counts().index)
 plt.xticks(rotation = 90)
 plt.title('Breakdown of Profile Name', fontsize = 16)
 plt.ylabel('count', fontsize = 14)
@@ -127,36 +174,36 @@ Also: this just the number of times the Vit was logged on.
 # Creating Weekdays 
 # =============================================================================
 # creating a weekday variable
-df1['weekdays'] =  df1['Start Time'].dt.weekday
+df['weekdays'] =  df['Start Time'].dt.weekday
 
 
 # making 'weekdays' a categorical variable
-df1['weekdays'] = pd.Categorical(df1['weekdays'], 
+df['weekdays'] = pd.Categorical(df['weekdays'], 
        categories = [0,1,2,3,4,5,6],
        ordered = True)
 
 # replacing 0-6 with Mon - Sun
-df1['weekdays'] = df1['weekdays'].replace(0,'Mon')
-df1['weekdays'] = df1['weekdays'].replace(1,'Tue')
-df1['weekdays'] = df1['weekdays'].replace(2,'Wed')
-df1['weekdays'] = df1['weekdays'].replace(3,'Thu')
-df1['weekdays'] = df1['weekdays'].replace(4,'Fri')
-df1['weekdays'] = df1['weekdays'].replace(5,'Sat')
-df1['weekdays'] = df1['weekdays'].replace(6,'Sun')
+df['weekdays'] = df['weekdays'].replace(0,'Mon')
+df['weekdays'] = df['weekdays'].replace(1,'Tue')
+df['weekdays'] = df['weekdays'].replace(2,'Wed')
+df['weekdays'] = df['weekdays'].replace(3,'Thu')
+df['weekdays'] = df['weekdays'].replace(4,'Fri')
+df['weekdays'] = df['weekdays'].replace(5,'Sat')
+df['weekdays'] = df['weekdays'].replace(6,'Sun')
 
 #changing to category
-df1['weekdays'] = df1['weekdays'].astype('category')
+df['weekdays'] = df['weekdays'].astype('category')
 
 #reordering weekdays
-df1['weekdays'] = df1['weekdays'].cat.reorder_categories(['Mon', 
+df['weekdays'] = df['weekdays'].cat.reorder_categories(['Mon', 
    'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], ordered=True)
 
 
 # create the table
-df1.groupby('Profile Name')['weekdays'].value_counts()
+df.groupby('Profile Name')['weekdays'].value_counts()
 
 # create  the table
-views_per_day = df1.groupby(
+views_per_day = df.groupby(
         ['Profile Name', 'weekdays']
         )['Duration'].sum().reset_index()
 
@@ -181,14 +228,14 @@ plt.show()
 # Creating Hour
 # =============================================================================
 
-df1['hour'] = df1['Start Time'].dt.hour
+df['hour'] = df['Start Time'].dt.hour
 
-df1['hour'] = pd.Categorical(df1['hour'], 
+df['hour'] = pd.Categorical(df['hour'], 
        categories = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
        ordered = True)
 
 # create the table
-views_per_Vit = df1.groupby(
+views_per_Vit = df.groupby(
         ['Profile Name', 'hour']
         )['Duration'].count().reset_index()
 
@@ -199,28 +246,28 @@ plotdata1 = views_per_Vit.pivot(index = 'Profile Name',
 
 plotdata1.plot(kind = 'bar')
 
-df1.groupby('Profile Name')['hour'].value_counts()
+df.groupby('Profile Name')['hour'].value_counts()
 
 # =============================================================================
 # Creating variable called Type: Tv Show or Movie
 # =============================================================================
 
 #trying to create the all the names with Season and create  a new variable called Type
-df1.loc[df1['Title'].str.contains(': '), 'Type'] = 'TV Show'
+df.loc[df['Title'].str.contains(': '), 'Type'] = 'TV Show'
 
 #Trying to create  Movie in Type
-df1.loc[df1['Type'].isnull(), 'Type'] = 'Movie'
+df.loc[df['Type'].isnull(), 'Type'] = 'Movie'
 
 
 #visualising duration and profile Name type
-views_per_Vit_by_Type = df1.groupby(
+views_per_Vit_by_Type = df.groupby(
         ['Profile Name', 'Type']
         )['Duration'].sum().reset_index()
 
 #Creating table to view Duration by Name and Type
-pivot_movie_name = pd.DataFrame({'A': df1['Profile Name'],
-                   'B': df1['Type'],
-                   'C': df1['Duration']})
+pivot_movie_name = pd.DataFrame({'A': df['Profile Name'],
+                   'B': df['Type'],
+                   'C': df['Duration']})
 
 # Pivoting the talbe
 pivot_movie_name = pd.pivot_table(pivot_movie_name, values='C', index=['A'], columns=['B'], aggfunc='sum')
@@ -231,7 +278,7 @@ print(pivot_movie_name)
 #A                                         
 #Karina   22 days 03:48:58 67 days 22:03:55
 #Karolina 10 days 04:41:23 11 days 12:55:52
-#Vit3       1 days 10:28:40  2 days 19:57:30
+#Vit       1 days 10:28:40  2 days 19:57:30
 
 plotdata2 = views_per_Vit_by_Type.pivot(index = 'Profile Name',
                                 columns = 'Type',
@@ -251,12 +298,12 @@ plt.show()
 # Removing Seasons and Episodes from text in Titles
 # =============================================================================
 
-df1['Title_name'] = (np.where(df1['Title'].str.contains(': '),
-                  df1['Title'].str.split(':').str[0],
-                  df1['Title']))
+df['Title_name'] = (np.where(df['Title'].str.contains(': '),
+                  df['Title'].str.split(':').str[0],
+                  df['Title']))
 
 
-views_by_Title_name = df1.groupby(['Title_name']
+views_by_Title_name = df.groupby(['Title_name']
         )['Duration'].sum().reset_index()
 
 
@@ -264,14 +311,14 @@ views_by_Title_name = df1.groupby(['Title_name']
 # Duration by Profile Name and Titles
 # =============================================================================
 #visualising duration by profile Name and title
-views_by_Title_name = df1.groupby(
+views_by_Title_name = df.groupby(
         ['Title_name']
         )['Duration'].sum().sort_values(ascending=False)
 
 #Creating table to view Duration by Name and title
-pivot_title_name = pd.DataFrame({'A': df1['Profile Name'],
-                   'B': df1['Title_name'],
-                   'C': df1['Duration']})
+pivot_title_name = pd.DataFrame({'A': df['Profile Name'],
+                   'B': df['Title_name'],
+                   'C': df['Duration']})
 
 # Pivoting the table
 pivot_title_name1 = pd.pivot_table(pivot_title_name, values='C', index=['B'], columns=['A'], aggfunc='sum')
@@ -284,11 +331,11 @@ print(pivot_title_name1)
 # Creating separate datasets for each Vit to analyse Top Movies and TV Shows for each Vit
 # =============================================================================
 
-Karina = df1[df1['Profile Name'] == 'Karina']
+Karina = df[df['Profile Name'] == 'Karina']
 
-Karolina = df1[df1['Profile Name'] == 'Karolina']
+Karolina = df[df['Profile Name'] == 'Karolina']
 
-Vit3 = df1[df1['Profile Name'] == 'Vit3']
+Vit = df[df['Profile Name'] == 'Vit']
 
 
 # =============================================================================
@@ -414,22 +461,22 @@ TV_Shows_views_by_Karolina.tail(15)
 
 
 # =============================================================================
-# Examining dataset by Vit3
+# Examining dataset by Vit
 # =============================================================================
 
-#Creating the view of Vit3's viewing habits
-views_by_Vit3 = Vit3.groupby(
+#Creating the view of Vit's viewing habits
+views_by_Vit = Vit.groupby(
         ['Title_name', 'Type']
         )['Duration'].sum().sort_values(ascending=False)
 
-# Viewing Vit3's Top 50 most watched (in Duration) Tv Shows and Movies
-views_by_Vit3.head(50)
+# Viewing Vit's Top 50 most watched (in Duration) Tv Shows and Movies
+views_by_Vit.head(50)
 
 # Viewing Karolina's Bottom 15 watched (in Duration) Tv Shows and Movies
-views_by_Vit3.tail(15)
+views_by_Vit.tail(15)
 
 #examining the shape of the data
-print(views_by_Vit3.shape)
+print(views_by_Vit.shape)
 
 
 '''
