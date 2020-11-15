@@ -9,7 +9,7 @@ In my defence of my nightly viewing habits: I use Netflix to watch as I fall asl
 Majority of the time, I would turn on Netflix before bed and just fall asleep. 
 Unfortunately, Netflix does not ask "Click to Continue" and on numerous occassions I woke up at 3am to find that Netflix kept rolling.
 
-In March of 2012, I found myself unemployed due to COVID, so I had a lot of free time.
+In March of 2020, I found myself unemployed due to COVID, so I had a lot of free time.
 Sometimes, when I watch movies, I code. I put on in the background, more like white noise, which does not require much thinking or attention from actual work. 
 This dataset was analysed during Season 2 of iZombie!
 
@@ -87,7 +87,8 @@ I am surprised that there are not more movies on the list that I watched twice..
 Covid has changed my life dramatically. As I was employed in Private Education, I found myself unemployed and, apparently, with a lot of free time.  
 So I decided to find out how much of that viewing was made during Covid and Pre-Covid. 
 Considering I am unemployed (but in a part-time course in DBS, which takes up majority of my time now, I still have a lot of viewing time while I code.
-**I had passed both my summer exams with an A**
+**I had passed both my summer exams with flying colours. Two As to be exactly**
+Apparently, instead of being "Work Hard. Play Hard.", I am "Work Hard. Watch Netflix Harder." 
 
 ### New Variables
 I created ['Normality'] which is stated by 12th of March 2020 
