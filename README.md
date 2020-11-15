@@ -10,7 +10,7 @@ Majority of the time, I would turn on Netflix before bed and just fall asleep.
 Unfortunately, Netflix does not ask "Click to Continue" and on numerous occassions I woke up at 3am to find that Netflix kept rolling.
 
 In March of 2012, I found myself unemployed due to COVID, so I had a lot of free time.
-Sometimes, when I watch movies, I code. I put something in the background, more like white noise, which does not require much thinking or attention from actual work. 
+Sometimes, when I watch movies, I code. I put on in the background, more like white noise, which does not require much thinking or attention from actual work. 
 This dataset was analysed during Season 2 of iZombie!
 
 ### Variables
@@ -21,10 +21,10 @@ This dataset was analysed during Season 2 of iZombie!
 The following Variables were removed from the data ['Device Type', 'Bookmark', 'Latest Bookmark', 'Country']
 The data contains Hooks and Trailers, which were elimiated from the data as wel. Rows with HOOK and TRAILER in ['Supplemental Video Type'] were deleted. Only 'NaN' was included in the dataset.
 
-['Start Time'] was changed to date and time using *to_datetime*
-['Duration']  was changed to duration using *to_timedelta*
+['Start Time'] was changed to date and time using *to_datetime*.
+['Duration']  was changed to duration using *to_timedelta*.
 
-Another varialbe was created Type which had 2 levels: TV Show and Movie
+Another variable ['Type'] was created which had 2 levels: TV Show and Movie.
 
 ### Users
 My family watches Netflix as well, but I think I should only write about myself in this report. 
@@ -78,16 +78,18 @@ Considering I am unemployed (but in a part-time course in DBS, which takes up ma
 
 
 ### New Variables
-I created ['Normality'] which is stated by 12th of March 2020 (The day that Taoiseach Leo Varadkar closed all schools, colleges and universities (both private and public) in the Republic of Ireland). Everything before this date is considered 'Pre-Covid', everything after is considered 'Covid'
+I created ['Normality'] which is stated by 12th of March 2020 
+(The day that Taoiseach Leo Varadkar closed all schools, colleges and universities (both private and public) in the Republic of Ireland).
+Everything before this date is considered 'Pre-Covid', everything after is considered 'Covid'.
 
-I also split the 'Karina' dataset by 'Covid_Movies' and 'Covid_TV_Show'
+I also split the 'Karina' dataset by 'Covid_Movies' and 'Covid_TV_Show'.
 
 ### Comparing Habit Pre-Covid and Covid
 
 **Spot the difference: Pre-Covid and Covid**
 ![Compare_Weekdays](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Compare_Weekdays.png)
 
-Although, weekdays seem not to have a significant changed, Covid viewing habits are nearly a third of Pre-Covid data..
+Although, weekdays seem not to have a significant changed, Covid viewing habits are nearly a third of Pre-Covid data.
 
 **Spot the difference: Pre-Covid and Covid**
 ![Compare_Hours](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Compare_Hours.png)
