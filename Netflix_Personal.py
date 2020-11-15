@@ -272,7 +272,7 @@ views_by_Type = Karina.groupby(
         )['Duration'].sum().reset_index()
 
 
-print(views_by_Type )
+print(views_by_Type)
 #       Type         Duration
 # 0    Movie  8 days 00:12:30
 # 1  TV Show 82 days 01:40:23
@@ -284,6 +284,7 @@ plt.xticks(rotation = 90)
 plt.title('TV Show or Movie?', fontsize = 14)
 plt.ylabel('Duration', fontsize = 12)
 plt.show()
+
 
 # =============================================================================
 # Examining dataset by Karina
@@ -534,12 +535,13 @@ Covid_top_move_df.rename(columns={'index':'Title_name', 'Duration':'Duration'}, 
 Covid_top_move_df
 
 #Creating a graph for Movie
-top_movie_mid_COVID_graph=sns.barplot(x = "Title_name", y = "Duration", data = Covid_top_move_df,
+Covid_top_move_mid_COVID_graph=sns.barplot(x = "Title_name", y = "Duration", data = Covid_top_move_df,
                  palette = 'Blues_d')
-top_movie_mid_COVID_graph.set_title('Top 15 TV Shows Mid-Covid')
-top_movie_mid_COVID_graph.set_ylabel('Duration')
-top_movie_mid_COVID_graph.set_xlabel('TV Shows')
-top_movie_mid_COVID_graph.set_xticklabels(Covid_top_move_df.get_xticklabels(), rotation = 90)
+Covid_top_move_mid_COVID_graph.set_title('Top Movie Mid-Covid')
+Covid_top_move_mid_COVID_graph.set_ylabel('Duration')
+Covid_top_move_mid_COVID_graph.set_xlabel('Movie')
+Covid_top_move_mid_COVID_graph.set_xticklabels(Covid_top_move_mid_COVID_graph.get_xticklabels(), rotation = 90)
+
 
 
 
