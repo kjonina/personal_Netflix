@@ -23,7 +23,7 @@ I aimed and succeeed to:
 - [x] split month and year from date
 - [x] creatively filter 'Title' to eliminate Seasons and Episodes and to create new variable ['Type']
 - [x] split 'Title' to eliminate Seasons and Episodes and to create new variable ['Title'] to have just 'Gossip Girl' instead of 'Gossip Girl: Season 3: Episode 7'
-- [x] filter and split data (['Profile_Name',  'Type', 'Normality']
+- [x] filter and split data ['Profile_Name',  'Type', 'Normality']
 - [x] create pivot tables with timedelta
 - [x] practise creating graphs in pandas and seaborn
 - [x] use Github and update the README.md

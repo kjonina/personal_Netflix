@@ -213,11 +213,12 @@ views_per_day_df.rename(columns = {'index':'weekdays', 'Duration':'Duration'}, i
 views_per_day_df
 
 #Creating a graph for Month and Year
+plt.figure(figsize = (12, 8))
 views_per_day_df_graph = sns.barplot(x = "weekdays", y = "Duration", data = views_per_day_df,
                  palette = 'magma')
-views_per_day_df_graph.set_title('Time spent on Netflix for each Weekday')
-views_per_day_df_graph.set_ylabel('Duration')
-views_per_day_df_graph.set_xlabel('Month and Year')
+views_per_day_df_graph.set_title('Time spent on Netflix for each Weekday', fontsize = 20)
+views_per_day_df_graph.set_ylabel('Duration',fontsize = 14)
+views_per_day_df_graph.set_xlabel('Month and Year', fontsize = 14)
 views_per_day_df_graph.set_xticklabels(views_per_day_df_graph.get_xticklabels())
 
 
@@ -239,11 +240,12 @@ views_per_hour_df.rename(columns = {'index':'hour', 'Duration':'Duration'}, inpl
 views_per_hour_df
 
 #Creating a graph for Month and Year
+plt.figure(figsize = (12, 8))
 views_per_hour_df_graph = sns.barplot(x = "hour", y = "Duration", data = views_per_hour_df,
                  palette = 'magma')
-views_per_hour_df_graph.set_title('Top 15 TV Shows Mid-Covid')
-views_per_hour_df_graph.set_ylabel('Duration')
-views_per_hour_df_graph.set_xlabel('Month and Year')
+views_per_hour_df_graph.set_title('Top 15 TV Shows Mid-Covid', fontsize = 20)
+views_per_hour_df_graph.set_ylabel('Duration', fontsize = 14)
+views_per_hour_df_graph.set_xlabel('Month and Year', fontsize = 14)
 views_per_hour_df_graph.set_xticklabels(views_per_hour_df_graph.get_xticklabels(), rotation = 90)
 
 
@@ -267,11 +269,12 @@ Karina_Year_df.rename(columns = {'index':'year', 'Duration':'Duration'}, inplace
 Karina_Year_df
 
 #Creating a graph for TV Shows
+plt.figure(figsize = (12, 8))
 Karina_Year_df_graph = sns.barplot(x = "year", y = "Duration", data = Karina_Year_df,
                  palette = 'Blues_d')
-Karina_Year_df_graph.set_title('Which year did I watch the most Netflix?')
-Karina_Year_df_graph.set_ylabel('Duration')
-Karina_Year_df_graph.set_xlabel('Year')
+Karina_Year_df_graph.set_title('Which year did I watch the most Netflix?', fontsize = 20)
+Karina_Year_df_graph.set_ylabel('Duration', fontsize = 14)
+Karina_Year_df_graph.set_xlabel('Year', fontsize = 14)
 Karina_Year_df_graph.set_xticklabels(Karina_Year_df_graph.get_xticklabels(), rotation = 90)
 
 # =============================================================================
@@ -291,11 +294,12 @@ Karina_Month_df.rename(columns = {'index':'month', 'Duration':'Duration'}, inpla
 Karina_Month_df
 
 #Creating a graph for TV Shows
+plt.figure(figsize = (12, 8))
 Karina_Month_df_graph = sns.barplot(x = "month", y = "Duration", data = Karina_Month_df,
                  palette = 'Blues_d')
-Karina_Month_df_graph.set_title('Which month did I watch the most Netflix?')
-Karina_Month_df_graph.set_ylabel('Duration')
-Karina_Month_df_graph.set_xlabel('Month')
+Karina_Month_df_graph.set_title('Which month did I watch the most Netflix?', fontsize = 20)
+Karina_Month_df_graph.set_ylabel('Duration', fontsize = 14)
+Karina_Month_df_graph.set_xlabel('Month', fontsize = 14)
 Karina_Month_df_graph.set_xticklabels(Karina_Month_df_graph.get_xticklabels(), rotation = 90)
 
 
@@ -317,11 +321,12 @@ Karina_Month_Year_df.rename(columns = {'index':'month_year', 'Duration':'Duratio
 Karina_Month_Year_df
 
 #Creating a graph for Month and Year
+plt.figure(figsize = (12, 8))
 Karina_Month_Year_df_graph = sns.barplot(x = "month_year", y = "Duration", data = Karina_Month_Year_df,
                  palette = 'Greens_d')
-Karina_Month_Year_df_graph.set_title('When did I watch most Netflix?')
-Karina_Month_Year_df_graph.set_ylabel('Duration')
-Karina_Month_Year_df_graph.set_xlabel('Month and Year')
+Karina_Month_Year_df_graph.set_title('When did I watch most Netflix?', fontsize = 20)
+Karina_Month_Year_df_graph.set_ylabel('Duration', fontsize = 14)
+Karina_Month_Year_df_graph.set_xlabel('Month and Year', fontsize = 14)
 Karina_Month_Year_df_graph.set_xticklabels(Karina_Month_Year_df_graph.get_xticklabels(), rotation = 90)
 
 
@@ -349,11 +354,12 @@ views_by_Type_df.rename(columns = {'index':'Type', 'Duration':'Duration'}, inpla
 views_by_Type_df
 
 #Creating a 
+plt.figure(figsize = (12, 8))
 views_by_Type_df_graph = sns.barplot(x = "Type", y = "Duration", data = views_by_Type_df,
                  palette = 'mako')
-views_by_Type_df_graph.set_title('Top 15 TV Shows Mid-Covid')
-views_by_Type_df_graph.set_ylabel('Duration')
-views_by_Type_df_graph.set_xlabel('Month and Year')
+views_by_Type_df_graph.set_title('Movie or TV Show?', fontsize = 20)
+views_by_Type_df_graph.set_ylabel('Duration', fontsize = 14)
+views_by_Type_df_graph.set_xlabel('Month and Year', fontsize = 14)
 views_by_Type_df_graph.set_xticklabels(views_by_Type_df_graph.get_xticklabels())
 
 
@@ -385,11 +391,12 @@ top_move_df.rename(columns = {'index':'Title_name', 'Duration':'Duration'}, inpl
 
 
 #Creating a graph for Movie
-movie_graph = sns.barplot(x = "Title_name", y = "Duration", data = top_move_df,
+plt.figure(figsize = (12, 8))
+movie_graph = sns.barplot(y = "Title_name", x = "Duration", data = top_move_df,
                  palette = 'viridis')
-movie_graph.set_title('Top 15 Movies')
-movie_graph.set_ylabel('Duration')
-movie_graph.set_xlabel('Movies')
+movie_graph.set_title('Top 15 Movies', fontsize = 20)
+movie_graph.set_ylabel('Duration', fontsize = 14)
+movie_graph.set_xlabel('Movies', fontsize = 14)
 movie_graph.set_xticklabels(movie_graph.get_xticklabels(), rotation = 90)
 
 # =============================================================================
@@ -413,11 +420,12 @@ top_TV_Show_df.rename(columns = {'index':'Title_name', 'Duration':'Duration'}, i
 top_TV_Show_df
 
 #Creating a graph for TV Shows
-TV_Show_graph = sns.barplot(x = "Title_name", y = "Duration", data = top_TV_Show_df,
+plt.figure(figsize = (12, 8))
+TV_Show_graph = sns.barplot(y = "Title_name", x = "Duration", data = top_TV_Show_df,
                  palette = 'viridis')
-TV_Show_graph.set_title('Top 15 TV Shows')
-TV_Show_graph.set_ylabel('Duration')
-TV_Show_graph.set_xlabel('TV Shows')
+TV_Show_graph.set_title('Top 15 TV Shows', fontsize = 20)
+TV_Show_graph.set_ylabel('TV Shows', fontsize = 14)
+TV_Show_graph.set_xlabel('Duration', fontsize = 14)
 TV_Show_graph.set_xticklabels(TV_Show_graph.get_xticklabels(), rotation = 90)
 
 
@@ -544,11 +552,12 @@ top_TV_Show_mid_COVID_df.rename(columns = {'index':'Title_name', 'Duration':'Dur
 top_TV_Show_mid_COVID_df
 
 #Creating a graph for TV Shows
-top_TV_Show_mid_COVID_graph = sns.barplot(x = "Title_name", y = "Duration", data = top_TV_Show_mid_COVID_df,
+plt.figure(figsize = (12, 8))
+top_TV_Show_mid_COVID_graph = sns.barplot(y = "Title_name", x = "Duration", data = top_TV_Show_mid_COVID_df,
                  palette = 'Reds_d')
-top_TV_Show_mid_COVID_graph.set_title('Top 15 TV Shows Mid-Covid')
-top_TV_Show_mid_COVID_graph.set_ylabel('Duration')
-top_TV_Show_mid_COVID_graph.set_xlabel('TV Shows')
+top_TV_Show_mid_COVID_graph.set_title('Top 15 TV Shows Mid-Covid', fontsize = 20)
+top_TV_Show_mid_COVID_graph.set_ylabel('TV Shows', fontsize = 14)
+top_TV_Show_mid_COVID_graph.set_xlabel('Duration', fontsize = 14)
 top_TV_Show_mid_COVID_graph.set_xticklabels(top_TV_Show_mid_COVID_graph.get_xticklabels(), rotation = 90)
 
 
@@ -588,11 +597,12 @@ Covid_top_move_df.rename(columns = {'index':'Title_name', 'Duration':'Duration'}
 Covid_top_move_df
 
 #Creating a graph for Movie
+plt.figure(figsize = (12, 8))
 Covid_top_move_mid_COVID_graph = sns.barplot(y = "Title_name", x = "Duration", data = Covid_top_move_df,
                  palette = 'Reds_d')
-Covid_top_move_mid_COVID_graph.set_title('Top Movie Mid-Covid')
-Covid_top_move_mid_COVID_graph.set_ylabel('Duration')
-Covid_top_move_mid_COVID_graph.set_xlabel('Movie')
+Covid_top_move_mid_COVID_graph.set_title('Top Movie Mid-Covid ',   fontsize = 20)
+Covid_top_move_mid_COVID_graph.set_ylabel('Movie',  fontsize = 14)
+Covid_top_move_mid_COVID_graph.set_xlabel('Duration',  fontsize = 14)
 Covid_top_move_mid_COVID_graph.set_xticklabels(Covid_top_move_mid_COVID_graph.get_xticklabels(), rotation = 90)
 
 
