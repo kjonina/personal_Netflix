@@ -17,16 +17,16 @@ This dataset was analysed during Season 2 of iZombie!
 I have started and NOT FINISHED so many datasets. I made it my mission to finish one project and write my analysis in the README.md file!
 It is a goofy little project but there are a several reasons why I did this project.
 I aimed and succeeed to:
-[x] build my familiarity with pandas
-[x] use to_timedate and to_timedelta
-[x] convert datetime to date
-[x] split month and year from date
-[x] creatively filter 'Title' to eliminate Seasons and Episodes and to create new variable ['Type']
-[x] split 'Title' to eliminate Seasons and Episodes and to create new variable ['Title'] to have just 'Gossip Girl' instead of 'Gossip Girl: Season 3: Episode 7'
-[x] filter and split data (['Profile_Name',  'Type', 'Normality']
-[x] create pivot tables with timedelta
-[x] practise creating graphs in pandas and seaborn
-[x] use Github and update the README.md
+- [x] build my familiarity with pandas
+- [x] use to_timedate and to_timedelta
+- [x] convert datetime to date
+- [x] split month and year from date
+- [x] creatively filter 'Title' to eliminate Seasons and Episodes and to create new variable ['Type']
+- [x] split 'Title' to eliminate Seasons and Episodes and to create new variable ['Title'] to have just 'Gossip Girl' instead of 'Gossip Girl: Season 3: Episode 7'
+- [x] filter and split data (['Profile_Name',  'Type', 'Normality']
+- [x] create pivot tables with timedelta
+- [x] practise creating graphs in pandas and seaborn
+- [x] use Github and update the README.md
 
 ### Variables
 ['Profile Name', 'Start Time', 'Duration', 'Attributes', 'Title',
