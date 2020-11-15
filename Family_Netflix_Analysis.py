@@ -79,31 +79,6 @@ df['Date'] = df['Start Time'].dt.date
 df['year'] = pd.DatetimeIndex(df['Date']).year
 df['month'] = pd.DatetimeIndex(df['Date']).month
 
-df.info()
-
-
-
-## replacing 0-6 with Mon - Sun
-#df['month'] = df['month'].replace(0,'Jan')
-#df['month'] = df['month'].replace(1,'Feb')
-#df['month'] = df['month'].replace(2,'Mar')
-#df['month'] = df['month'].replace(3,'Apr')
-#df['month'] = df['month'].replace(4,'May')
-#df['month'] = df['month'].replace(5,'June')
-#df['month'] = df['month'].replace(6,'July')
-#df['month'] = df['month'].replace(7,'Aug')
-#df['month'] = df['month'].replace(8,'Sep')
-#df['month'] = df['month'].replace(9,'Oct')
-#df['month'] = df['month'].replace(10,'Nov')
-#df['month'] = df['month'].replace(11,'Dec')
-#
-#
-##changing to category
-#df['month'] = df['month'].astype('category')
-#
-##reordering weekdays
-#df['month'] = df['month'].cat.reorder_categories(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], ordered=True)
-
 # =============================================================================
 # Creating a Variable examining Pre-Covid and Covid
 # =============================================================================
