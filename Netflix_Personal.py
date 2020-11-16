@@ -39,24 +39,11 @@ print(df.shape)
 # prints out names of columns
 print(df.columns)
 
-# This tells us which variables are object, int64 and float 64. This would mean that 
-# some of the object variables might have to be changed into a categorical variables and int64 to float64 
-# depending on our analysis.
+# This tells us which variables are object, int64 and float 64. 
 print(df.info())
-
 
 # checking for missing data
 df.isnull().sum() 
-#Profileame N                  0
-#Start Time                    0
-#Duration                      0
-#Attributes                 6819
-#Title                         0
-#Supplemental Video Type    8224
-#Device Type                   0
-#Bookmark                      0
-#Latest Bookmark               0
-#Country                       0
 
 # checking the df shape
 print(df.shape)
@@ -180,8 +167,6 @@ Karina = df[df['Profile Name'] == 'Karina']
 # examining my hours spent on Netflix
 Karina['Duration'].sum()
 
-#'90 days 01:52:53'
-
 #drop redundant Profile Name
 Karina = Karina.drop(['Profile Name'], axis = 1)
 
@@ -197,15 +182,6 @@ views_per_day = Karina.groupby(
         )['Duration'].sum().reset_index()
 
 print(views_per_day)
-#  weekdays         Duration
-#0      Mon 11 days 06:16:13
-#1      Tue 11 days 01:22:45
-#2      Wed 12 days 06:48:28
-#3      Thu 13 days 02:25:43
-#4      Fri 14 days 08:24:55
-#5      Sat 15 days 13:01:07
-#6      Sun 12 days 11:33:42
-
 
 views_per_day_df = pd.DataFrame(views_per_day)
 views_per_day_df.reset_index()
@@ -303,7 +279,6 @@ Karina_Month_df_graph.set_xlabel('Month', fontsize = 14)
 Karina_Month_df_graph.set_xticklabels(Karina_Month_df_graph.get_xticklabels(), rotation = 90)
 
 
-
 # =============================================================================
 # Analyse Date -> Month and Year
 # =============================================================================
@@ -341,11 +316,6 @@ views_by_Type = Karina.groupby(
 
 
 print(views_by_Type)
-#       Type         Duration
-# 0    Movie  8 days 00:12:30
-# 1  TV Show 82 days 01:40:23
-
-
 
 #Creating a dataframe for TV Shows
 views_by_Type_df = pd.DataFrame(views_by_Type)
@@ -445,16 +415,6 @@ comparing_habits_WD_pivot = pd.pivot_table(
 
 # Compare the data
 print(comparing_habits_WD_pivot)
-#A             Covid        Pre-Covid
-#C                                   
-#Mon 1 days 19:27:22  9 days 10:48:51
-#Tue 2 days 14:34:10  8 days 10:48:35
-#Wed 2 days 12:23:10  9 days 18:25:18
-#Thu 3 days 15:22:07  9 days 10:45:32
-#Fri 3 days 20:37:57 10 days 11:46:58
-#Sat 3 days 03:23:11 12 days 09:37:56
-#Sun 2 days 04:03:42 10 days 07:30:00
-
 
 comparing_habits_WD_pivot.plot(kind = 'bar', figsize=(12,8))
 plt.xticks(rotation = 90)
@@ -469,34 +429,6 @@ comparing_habits_HRS_pivot = pd.pivot_table(
 
 # Compare the data
 print(comparing_habits_HRS_pivot)
-#Normality           Covid        Pre-Covid
-#Hour                                      
-#0         0 days 14:45:57  5 days 10:59:59
-#1         0 days 09:06:41  3 days 04:25:16
-#2         0 days 02:42:58  2 days 09:18:18
-#3         0 days 01:37:58  1 days 18:11:27
-#4         0 days 03:28:09  1 days 06:26:35
-#5         0 days 05:21:30  1 days 01:15:49
-#6         0 days 09:19:23  0 days 18:18:09
-#7         0 days 12:16:01  1 days 08:16:58
-#8         0 days 18:31:23  1 days 09:01:39
-#9         0 days 16:12:53  1 days 05:47:19
-#10        0 days 15:10:08  1 days 08:13:29
-#11        0 days 21:10:02  0 days 23:12:02
-#12        1 days 01:16:07  1 days 05:41:01
-#13        0 days 21:12:53  1 days 05:33:17
-#14        0 days 21:04:03  1 days 00:32:54
-#15        1 days 02:54:27  1 days 07:21:45
-#16        0 days 22:16:19  1 days 18:21:33
-#17        1 days 02:27:45  2 days 09:55:51
-#18        0 days 17:25:27  3 days 00:14:31
-#19        1 days 03:55:54  3 days 04:23:37
-#20        0 days 21:47:21  5 days 01:30:09
-#21        2 days 05:00:52  8 days 12:16:28
-#22        2 days 02:09:37 10 days 11:48:08
-#23        1 days 06:37:51  8 days 22:36:56
-
-
 
 comparing_habits_HRS_pivot.plot(kind = 'bar', figsize=(12,8))
 plt.xticks(rotation = 90)
@@ -528,21 +460,6 @@ top_TV_Show_mid_COVID = Covid_TV_Show_view.head(15)
 
 # checking viewing after 12th Mardch 2020
 print(top_TV_Show_mid_COVID)
-#How I Met Your Mother                 2 days 23:28:32
-#How to Get Away With Murder           2 days 04:09:05
-#Once Upon a Time                      1 days 09:30:18
-#Riverdale                             1 days 08:01:11
-#Brooklyn Nine-Nine                    1 days 03:16:51
-#Good Girls                            0 days 23:52:32
-#Gossip Girl                           0 days 22:41:50
-#The Fall                              0 days 21:42:41
-#The Innocence Files                   0 days 13:53:50
-#Inside the World’s Toughest Prisons   0 days 11:12:47
-#You                                   0 days 10:43:28
-#Unsolved Mysteries                    0 days 10:00:02
-#Conversations with a Killer           0 days 09:11:02
-#Emily in Paris                        0 days 06:55:21
-#Money Heist                           0 days 06:18:53
 
 #Creating a dataframe for TV Shows
 top_TV_Show_mid_COVID_df = pd.DataFrame(top_TV_Show_mid_COVID.head(15))
@@ -572,22 +489,6 @@ Covid_top_movie = Covid_movie_views.head(15)
 
 print(Covid_top_movie)
 
-#The Break-Up                   03:58:16
-#Gone Girl                      03:05:51
-#Wedding Crashers               02:51:50
-#Holidate                       02:51:19
-#The Five-Year Engagement       02:46:19
-#Spenser Confidential           02:43:48
-#Sex and the City 2             02:27:50
-#The Old Guard                  02:17:05
-#Love Wedding Repeat            02:14:33
-#Love, Guaranteed               02:06:09
-#Marriage Story                 02:03:47
-#How to Lose a Guy in 10 Days   02:01:14
-#Anna Karenina                  02:00:40
-#He's Just Not That Into You    02:00:09
-#Think Like a Man               01:54:18
-
 
 #Creating a dataframe for Movie
 Covid_top_move_df = pd.DataFrame(Covid_top_movie)
@@ -604,6 +505,9 @@ Covid_top_move_mid_COVID_graph.set_ylabel('Movie',  fontsize = 14)
 Covid_top_move_mid_COVID_graph.set_xlabel('Duration',  fontsize = 14)
 Covid_top_move_mid_COVID_graph.set_xticklabels(Covid_top_move_mid_COVID_graph.get_xticklabels(), rotation = 90)
 
-
+# =============================================================================
+# Save the Dataset in a new CSV as new columns were created
+# =============================================================================
+Karina.to_csv('Karina.csv')
 
 
