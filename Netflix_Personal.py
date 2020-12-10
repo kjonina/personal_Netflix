@@ -188,6 +188,9 @@ views_per_day_df.reset_index()
 views_per_day_df.rename(columns = {'index':'weekdays', 'Duration':'Duration'}, inplace = True)
 views_per_day_df
 
+
+
+sns.set()
 #Creating a graph for Month and Year
 plt.figure(figsize = (12, 8))
 views_per_day_df_graph = sns.barplot(x = "weekdays", y = "Duration", data = views_per_day_df,
@@ -197,6 +200,9 @@ views_per_day_df_graph.set_ylabel('Duration',fontsize = 14)
 views_per_day_df_graph.set_xlabel('Month and Year', fontsize = 14)
 views_per_day_df_graph.set_xticklabels(views_per_day_df_graph.get_xticklabels())
 
+
+#Save the graph
+views_per_day_df_graph.figure.savefig('views_per_day_df_graph.png')
 
 # =============================================================================
 # Analysing the hour of the day (for Karina)
@@ -223,6 +229,10 @@ views_per_hour_df_graph.set_title('Top 15 TV Shows Mid-Covid', fontsize = 20)
 views_per_hour_df_graph.set_ylabel('Duration', fontsize = 14)
 views_per_hour_df_graph.set_xlabel('Month and Year', fontsize = 14)
 views_per_hour_df_graph.set_xticklabels(views_per_hour_df_graph.get_xticklabels(), rotation = 90)
+
+
+#Save the graph
+views_per_hour_df_graph.figure.savefig('views_per_hour_df_graph.png')
 
 
 # =============================================================================
@@ -253,6 +263,10 @@ Karina_Year_df_graph.set_ylabel('Duration', fontsize = 14)
 Karina_Year_df_graph.set_xlabel('Year', fontsize = 14)
 Karina_Year_df_graph.set_xticklabels(Karina_Year_df_graph.get_xticklabels(), rotation = 90)
 
+#Save the graph
+Karina_Year_df_graph.figure.savefig('Karina_Year_df_graph.png')
+
+
 # =============================================================================
 # Analyse Date -> Month
 # =============================================================================
@@ -277,6 +291,9 @@ Karina_Month_df_graph.set_title('Which month did I watch the most Netflix?', fon
 Karina_Month_df_graph.set_ylabel('Duration', fontsize = 14)
 Karina_Month_df_graph.set_xlabel('Month', fontsize = 14)
 Karina_Month_df_graph.set_xticklabels(Karina_Month_df_graph.get_xticklabels(), rotation = 90)
+
+#Save the graph
+Karina_Month_df_graph.figure.savefig('Karina_Month_df_graph.png')
 
 
 # =============================================================================
@@ -303,6 +320,9 @@ Karina_Month_Year_df_graph.set_title('When did I watch most Netflix?', fontsize 
 Karina_Month_Year_df_graph.set_ylabel('Duration', fontsize = 14)
 Karina_Month_Year_df_graph.set_xlabel('Month and Year', fontsize = 14)
 Karina_Month_Year_df_graph.set_xticklabels(Karina_Month_Year_df_graph.get_xticklabels(), rotation = 90)
+
+#Save the graph
+Karina_Month_Year_df_graph.figure.savefig('Karina_Month_Year_df_graph.png')
 
 
 
@@ -331,6 +351,10 @@ views_by_Type_df_graph.set_title('Movie or TV Show?', fontsize = 20)
 views_by_Type_df_graph.set_ylabel('Duration', fontsize = 14)
 views_by_Type_df_graph.set_xlabel('Month and Year', fontsize = 14)
 views_by_Type_df_graph.set_xticklabels(views_by_Type_df_graph.get_xticklabels())
+
+#Save the graph
+views_by_Type_df_graph.figure.savefig('views_by_Type_df_graph.png')
+
 
 
 # =============================================================================
@@ -369,6 +393,9 @@ movie_graph.set_ylabel('Duration', fontsize = 14)
 movie_graph.set_xlabel('Movies', fontsize = 14)
 movie_graph.set_xticklabels(movie_graph.get_xticklabels(), rotation = 90)
 
+#Save the graph
+movie_graph.figure.savefig('movie_graph.png')
+
 # =============================================================================
 # Examining TV Show (for Karina)
 # =============================================================================
@@ -397,6 +424,9 @@ TV_Show_graph.set_title('Top 15 TV Shows', fontsize = 20)
 TV_Show_graph.set_ylabel('TV Shows', fontsize = 14)
 TV_Show_graph.set_xlabel('Duration', fontsize = 14)
 TV_Show_graph.set_xticklabels(TV_Show_graph.get_xticklabels(), rotation = 90)
+
+#Save the graph
+TV_Show_graph.figure.savefig('TV_Show_graph.png')
 
 
 
@@ -467,6 +497,7 @@ top_TV_Show_mid_COVID_df.reset_index(inplace = True)
 top_TV_Show_mid_COVID_df.rename(columns = {'index':'Title_name', 'Duration':'Duration'}, inplace = True)
 top_TV_Show_mid_COVID_df
 
+
 #Creating a graph for TV Shows
 plt.figure(figsize = (12, 8))
 top_TV_Show_mid_COVID_graph = sns.barplot(y = "Title_name", x = "Duration", data = top_TV_Show_mid_COVID_df,
@@ -476,6 +507,9 @@ top_TV_Show_mid_COVID_graph.set_ylabel('TV Shows', fontsize = 14)
 top_TV_Show_mid_COVID_graph.set_xlabel('Duration', fontsize = 14)
 top_TV_Show_mid_COVID_graph.set_xticklabels(top_TV_Show_mid_COVID_graph.get_xticklabels(), rotation = 90)
 
+
+#Save the graph
+top_TV_Show_mid_COVID_graph.figure.savefig('top_TV_Show_mid_COVID_graph.png')
 
 # =============================================================================
 # COVID MOVIES LIST (for Karina)
@@ -504,6 +538,9 @@ Covid_top_move_mid_COVID_graph.set_title('Top Movie Mid-Covid ',   fontsize = 20
 Covid_top_move_mid_COVID_graph.set_ylabel('Movie',  fontsize = 14)
 Covid_top_move_mid_COVID_graph.set_xlabel('Duration',  fontsize = 14)
 Covid_top_move_mid_COVID_graph.set_xticklabels(Covid_top_move_mid_COVID_graph.get_xticklabels(), rotation = 90)
+
+#Save the graph
+Covid_top_move_mid_COVID_graph.figure.savefig('Covid_top_move_mid_COVID_graph.png')
 
 # =============================================================================
 # Save the Dataset in a new CSV as new columns were created

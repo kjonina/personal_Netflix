@@ -51,7 +51,7 @@ Upon initial examination, I spent **90 days 01:52:53** watching Netflix!!
 
 **When did I watch Netflix most?**
 
-![Month_Year](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Month_Year.png)
+![Karina_Month_Year_df_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Karina_Month_Year_df_graph.png)
 
 Surprised with this graph. How did I watch so much Netflix in the first few months of getting the account?
 And how have I not bet it while in Covid?
@@ -59,7 +59,7 @@ And how have I not bet it while in Covid?
 ### Examining Weekdays
 **What day of the week do I watch the most Netflix?**
 
-![Duration_Weekdays](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_Weekdays.png)
+![views_per_day_df_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/views_per_day_df_graph.png)
 
 ### Examining Hour of the Day
 
@@ -69,7 +69,7 @@ Unfortunately, Netflix does not ask "Click to Continue" and on numerous occassio
 
 **What time of the day do I watch Netflix the most?**
 
-![Duration_Hours](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_Hours.png)
+![views_per_hour_df_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/views_per_hour_df_graph.png)
 
 ### Examining  Type
 Type Table
@@ -80,13 +80,13 @@ Due to enormous amount of data when viewing Top 15 so the data was split by User
 
 **What is my preference? Movies or TV Shows?**
 
-![Duration_Type](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_Type.png)
+![views_by_Type_df_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/views_by_Type_df_graph.png)
 
 ### Examining Top 15 Movies 
 
 **What are my TOP 15 Movies?**
 
-![Duration_Movie](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_Movie.png)
+![movie_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/movie_graph.png)
 
 In my defence of my poor Movie choices: again, some of them, I feel asleep to, so hence, I tried to go back and find out what happens in the end. 
 I am surprised that there are not more movies on the list that I watched twice... 
@@ -95,7 +95,7 @@ I am surprised that there are not more movies on the list that I watched twice..
 
 **What are my TOP 15 TV Shows?**
 
-![Duration_TV_SHow](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Duration_TV_SHow.png)
+![TV_Show_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/TV_Show_graph.png)
 
 # Examining By Pre-COVID and COVID
 Covid has changed my life dramatically. As I was employed in Private Education, I found myself unemployed and, apparently, with a lot of free time.  
@@ -129,7 +129,7 @@ Hour has a significant difference in habits. It is clear that there is a lot mor
 
 **What are my TOP 15 TV Shows in Covid?**
 
-![Covid_Duration_TV_SHow](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_TV_SHow.png)
+![top_TV_Show_mid_COVID_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/top_TV_Show_mid_COVID_graph.png)
 
 That is accurate, I had a 'HIMYM' marathon...
 
@@ -137,6 +137,6 @@ That is accurate, I had a 'HIMYM' marathon...
 
 **What are my TOP 15 Movie in Covid?**
 
-![Covid_Duration_Movie](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_Movie.png)
+![Covid_top_move_mid_COVID_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_Movie.png)
 
 My movie choices are rather shameful! However, I think I was trying to beat someone in this [Netflix tweet](https://twitter.com/netflix/status/940051734650503168?ref_src=twsrc%5Etfw).
