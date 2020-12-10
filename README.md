@@ -129,7 +129,7 @@ Hour has a significant difference in habits. It is clear that there is a lot mor
 
 **What are my TOP 15 TV Shows in Covid?**
 
-![top_TV_Show_mid_COVID_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/top_TV_Show_mid_COVID_graph.png)
+![top_TV_Show_mid_COVID_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_TV_SHow.png)
 
 That is accurate, I had a 'HIMYM' marathon...
 
@@ -137,6 +137,6 @@ That is accurate, I had a 'HIMYM' marathon...
 
 **What are my TOP 15 Movie in Covid?**
 
-![Covid_top_move_mid_COVID_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_Duration_Movie.png)
+![Covid_top_move_mid_COVID_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_top_move_mid_COVID_graph.png)
 
 My movie choices are rather shameful! However, I think I was trying to beat someone in this [Netflix tweet](https://twitter.com/netflix/status/940051734650503168?ref_src=twsrc%5Etfw).
