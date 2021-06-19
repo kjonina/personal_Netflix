@@ -97,6 +97,12 @@ df['Duration'] = pd.to_timedelta(df['Duration'])
 df.loc[df['date'] < datetime.date(2020,3,12), 'normality'] = 'Pre-Covid'
 df.loc[df['date'] > datetime.date(2020,3,12), 'normality'] = 'Covid'
 
+
+df.loc[df['date'] < datetime.date(2019,3,12), 'period'] = 'Pre-Covid 2019'
+df.loc[df['Pre-Covid 2019'] < datetime.date(2019,11,12), 'period'] = 'Pre-Covid 2019'
+df.loc[df['date'] < datetime.date(2018,3,12), 'period'] = 'Pre-Covid 2018'
+df.loc[df['Pre-Covid 2018'] < datetime.date(2018,11,12), 'period'] = 'Pre-Covid 2018'
+
 df['normality'] = df['normality'].astype('category')
 
 

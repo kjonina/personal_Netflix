@@ -111,7 +111,10 @@ Everything before this date is considered 'Pre-Covid', everything after is consi
 
 I also split the 'Karina' dataset by 'Covid_Movies' and 'Covid_TV_Show'.
 
-### Comparing Habit Pre-Covid and Covid
+### UPDATE:
+
+After receiving numerous messages about my viewing habits, I decided to filter the pre-Covid by the same period as Covid.
+So 2018 and 2019 viewing habits will be from 12 March (year) to 12 November (year), which is 8 months. 
 
 **Spot the difference: Pre-Covid and Covid**
 
@@ -140,3 +143,4 @@ That is accurate, I had a 'HIMYM' marathon...
 ![Covid_top_move_mid_COVID_graph](https://github.com/kjonina/personal_Netflix/blob/main/Graph/Covid_top_move_mid_COVID_graph.png)
 
 My movie choices are rather shameful! However, I think I was trying to beat someone in this [Netflix tweet](https://twitter.com/netflix/status/940051734650503168?ref_src=twsrc%5Etfw).
+
